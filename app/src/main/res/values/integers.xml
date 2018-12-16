@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="movie_thumbnail_ratio_width">490</integer>
+    <integer name="movie_thumbnail_ratio_height">736</integer>
+
+    <integer name="synopsis_max_lines">5</integer>
+</resources>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.app.cellstudio.androidkotlincleanboilerplate.interactor.model.MoviePresentationModel" />
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvLirRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:onClick="@{listener::onClick}"
+        android:clickable="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000">
+
+            <com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component.AspectAwareImageView
+                android:id="@+id/ivLirPoster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:aspect_adjust="height"
+                app:aspect_height="@integer/movie_thumbnail_ratio_height"
+                app:aspect_width="@integer/movie_thumbnail_ratio_width"
+                android:src="@{model.images.poster }"
+                tools:src="@drawable/ic_broken_image_24dp"/>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/ivLirTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.title}"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"
+                    tools:text="Hotel Transylvania 3: Summer Vacation"/>
+
+                <TextView
+                    android:id="@+id/ivLirYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivLirTitle"
+                    android:text="@{model.year}"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    tools:text="2018"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>
+

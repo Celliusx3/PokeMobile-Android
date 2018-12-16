@@ -1,0 +1,3 @@
+package com.app.cellstudio.androidkotlincleanboilerplate.interactor.viewmodel
+
+interface ViewModel
