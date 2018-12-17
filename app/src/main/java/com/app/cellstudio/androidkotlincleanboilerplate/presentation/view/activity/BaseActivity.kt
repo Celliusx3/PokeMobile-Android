@@ -2,6 +2,7 @@ package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.activ
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.util.Log
 import android.view.View
 import com.app.cellstudio.androidkotlincleanboilerplate.R
 import com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler.BaseSchedulerProvider
@@ -53,9 +54,9 @@ abstract class BaseActivity : RxAppCompatActivity() {
         onBindData(getRootView(), savedInstanceState)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
         compositeDisposable.dispose()
+        super.onDestroy()
     }
 
     protected fun onSetContentView() {

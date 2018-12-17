@@ -11,6 +11,12 @@ android {
         versionCode VERSION_CODE
         versionName VERSION_NAME
     }
+
+    buildTypes {
+        debug
+        staging
+        release
+    }
 }
 
 dependencies {

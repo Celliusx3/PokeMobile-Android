@@ -65,9 +65,9 @@ abstract class BaseFragment : RxFragment() {
         onBindData(view)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
         compositeDisposable.dispose()
+        super.onDestroy()
     }
 
     protected open fun onBindView(view: View?) {}
