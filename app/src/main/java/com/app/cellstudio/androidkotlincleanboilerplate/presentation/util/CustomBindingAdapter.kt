@@ -3,7 +3,6 @@ package com.app.cellstudio.androidkotlincleanboilerplate.presentation.util
 import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,7 +20,6 @@ fun setInvisible(view: View, visible: Boolean) {
 
 @BindingAdapter("android:src")
 fun setImageUri(view: ImageView, imageUri: String) {
-    Log.d("Here","Here")
     BaseImageLoader.getInstance().displayImage(imageUri, view)
 }
 
