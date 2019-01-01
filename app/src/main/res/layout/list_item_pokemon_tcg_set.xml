@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.app.cellstudio.domain.entity.PokemonTCGSet" />
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component.AspectAwareCardView
+        android:id="@+id/cvLirRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:onClick="@{listener::onClick}"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/selector_ripple"
+        app:aspect_adjust="height"
+        app:aspect_height="@integer/movie_thumbnail_ratio_height"
+        app:aspect_width="@integer/movie_thumbnail_ratio_width">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue_grey_900">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"
+                tools:src_rawImage="@{model.logoUrl}" />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/ivLirPoster"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:src="@{model.logoUrl}"-->
+                <!--tools:src="@drawable/ic_broken_image_24dp"/>-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/ivLirTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.name}"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"
+                    tools:text="Hotel Transylvania 3: Summer Vacation"/>
+
+                <TextView
+                    android:id="@+id/ivLirYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivLirTitle"
+                    android:text="@{model.releaseDate}"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    tools:text="2018"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component.AspectAwareCardView>
+
+</layout>
+
