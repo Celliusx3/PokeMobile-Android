@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/rlHome">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvHomeItem"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.app.cellstudio.pokemobile.interactor.viewmodel.HomeViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:nestedScrollingEnabled="false"
-        tools:targetApi="lollipop" />
+        android:layout_height="match_parent"
+        android:id="@+id/rlHome">
 
-</RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHomeItem"
+            android:visibility="@{viewModel.initialLoading ? View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:nestedScrollingEnabled="false"
+            tools:targetApi="lollipop" />
+
+        <ProgressBar
+            android:id="@+id/pbHome"
+            android:visibility="@{viewModel.initialLoading ? View.VISIBLE: View.GONE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+</layout>
 

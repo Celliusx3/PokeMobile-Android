@@ -1,15 +1,17 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment
+package com.app.cellstudio.pokemobile.presentation.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.app.cellstudio.androidkotlincleanboilerplate.BaseApplication
-import com.app.cellstudio.androidkotlincleanboilerplate.R
-import com.app.cellstudio.androidkotlincleanboilerplate.di.modules.HomeModule
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.viewmodel.HomeViewModel
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.adapter.PokemonTCGSetsAdapter
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component.OnEndlessScrollListener
 import com.app.cellstudio.domain.entity.PokemonTCGSet
+import com.app.cellstudio.pokemobile.BaseApplication
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.databinding.FragmentHomeBinding
+import com.app.cellstudio.pokemobile.di.modules.HomeModule
+import com.app.cellstudio.pokemobile.interactor.viewmodel.HomeViewModel
+import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGSetsAdapter
+import com.app.cellstudio.pokemobile.presentation.view.component.OnEndlessScrollListener
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -35,13 +37,16 @@ class HomeFragment : BaseFragment() {
     override fun onBindData(view: View?) {
         super.onBindData(view)
 
+        val binding = DataBindingUtil.bind<FragmentHomeBinding>(view!!)
+        binding?.viewModel = homeViewModel
+
         getSpecificPage(currentPageInIndex)
-        getLoading()
+        getPaginationLoading()
     }
 
     override fun onResume() {
         super.onResume()
-        subscribeSelectedMovie()
+        subscribeSelectedModel()
     }
 
     private fun setupPokemonTCGSetsList(pokemonTCGSets: List<PokemonTCGSet>) {
@@ -55,7 +60,7 @@ class HomeFragment : BaseFragment() {
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (pokemonTCGSetsAdapter?.getItemViewType(position)) {
-                    PokemonTCGSetsAdapter.VIEW_TYPE_MOVIE -> 1
+                    PokemonTCGSetsAdapter.VIEW_TYPE_DATA -> 1
                     PokemonTCGSetsAdapter.VIEW_TYPE_LOADING -> spanCount //number of columns of the grid
                     else -> -1
                 }
@@ -72,18 +77,18 @@ class HomeFragment : BaseFragment() {
                 }
             }
         })
-        subscribeSelectedMovie()
+        subscribeSelectedModel()
 
     }
 
-    private fun subscribeSelectedMovie() {
+    private fun subscribeSelectedModel() {
         if (pokemonTCGSetsAdapter == null)
             return
 
         val disposable = pokemonTCGSetsAdapter!!.getSelectedModel()
                 .compose(bindToLifecycle())
                 .observeOn(getUiScheduler())
-                .subscribe { selectedMovie -> navigator.navigateToMovieDetails(context, selectedMovie.code, selectedMovie.name) }
+                .subscribe { model -> navigator.navigateToDetails(context, model.code, model.name) }
         compositeDisposable.add(disposable)
     }
 
@@ -103,8 +108,8 @@ class HomeFragment : BaseFragment() {
         compositeDisposable.add(disposable)
     }
 
-    private fun getLoading() {
-        val disposable =homeViewModel.getIsLoading()
+    private fun getPaginationLoading() {
+        val disposable =homeViewModel.getPaginationLoading()
                 .compose(bindToLifecycle())
                 .subscribeOn(getIoScheduler())
                 .observeOn(getUiScheduler())

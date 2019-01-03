@@ -1,13 +1,13 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.adapter
+package com.app.cellstudio.pokemobile.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.app.cellstudio.androidkotlincleanboilerplate.R
-import com.app.cellstudio.androidkotlincleanboilerplate.databinding.ListItemPokemonTcgSetBinding
 import com.app.cellstudio.domain.entity.PokemonTCGSet
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.databinding.ListItemPokemonTcgSetBinding
 import io.reactivex.subjects.PublishSubject
 
 class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -38,7 +38,7 @@ class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : Re
                 val v2 = layoutInflater.inflate(R.layout.loading_bar, parent, false)
                 LoadingViewHolder(v2)
             }
-            VIEW_TYPE_MOVIE -> {
+            VIEW_TYPE_DATA -> {
                 val binding = DataBindingUtil
                         .inflate<ListItemPokemonTcgSetBinding>(layoutInflater, R.layout.list_item_pokemon_tcg_set, parent, false)
                 ViewHolder(binding)
@@ -54,7 +54,6 @@ class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : Re
 
     override fun onBindViewHolder(baseHolder: RecyclerView.ViewHolder, position: Int) {
         if (baseHolder is ViewHolder) {
-
             baseHolder.binding.model = models[position]
             baseHolder.binding.setListener {
                 val pos = baseHolder.adapterPosition
@@ -73,7 +72,7 @@ class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : Re
     override fun getItemViewType(position: Int): Int {
         return if (loading && position == itemCount - 1) {
             VIEW_TYPE_LOADING
-        } else VIEW_TYPE_MOVIE
+        } else VIEW_TYPE_DATA
     }
 
     fun setLoading(loading: Boolean) {
@@ -101,7 +100,7 @@ class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : Re
     }
 
     companion object {
-        const val VIEW_TYPE_MOVIE = 0
+        const val VIEW_TYPE_DATA = 0
         const val VIEW_TYPE_LOADING = 1
     }
 }

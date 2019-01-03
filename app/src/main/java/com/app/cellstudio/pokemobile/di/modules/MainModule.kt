@@ -1,9 +1,9 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.di.modules
+package com.app.cellstudio.pokemobile.di.modules
 
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler.BaseSchedulerProvider
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.viewmodel.MainViewModel
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.viewmodel.impl.MainViewModelImpl
 import com.app.cellstudio.domain.interactor.MainInteractor
+import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.interactor.viewmodel.MainViewModel
+import com.app.cellstudio.pokemobile.interactor.viewmodel.impl.MainViewModelImpl
 import dagger.Module
 import dagger.Provides
 

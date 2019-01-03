@@ -1,3 +1,3 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.interactor.viewmodel
+package com.app.cellstudio.pokemobile.interactor.viewmodel
 
 interface ViewModel

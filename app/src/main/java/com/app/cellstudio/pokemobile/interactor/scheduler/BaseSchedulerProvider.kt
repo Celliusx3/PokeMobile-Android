@@ -1,4 +1,4 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler
+package com.app.cellstudio.pokemobile.interactor.scheduler
 
 import io.reactivex.Scheduler
 import io.reactivex.annotations.NonNull

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rlSettings"
-    tools:context="com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment.SettingsFragment">
+    tools:context="com.app.cellstudio.pokemobile.presentation.view.fragment.SettingsFragment">
 
     <RelativeLayout
         android:id="@+id/rlSettingsCredits"

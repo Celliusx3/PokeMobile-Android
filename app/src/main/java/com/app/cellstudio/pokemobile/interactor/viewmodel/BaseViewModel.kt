@@ -1,5 +1,5 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.interactor.viewmodel
+package com.app.cellstudio.pokemobile.interactor.viewmodel
 
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
 
 abstract class BaseViewModel(protected val scheduler: BaseSchedulerProvider)

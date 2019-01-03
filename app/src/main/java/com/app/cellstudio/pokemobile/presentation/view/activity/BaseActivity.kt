@@ -1,12 +1,12 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.activity
+package com.app.cellstudio.pokemobile.presentation.view.activity
 
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import androidx.annotation.LayoutRes
-import com.app.cellstudio.androidkotlincleanboilerplate.R
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler.BaseSchedulerProvider
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.navigation.Navigator
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.presentation.navigation.Navigator
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable

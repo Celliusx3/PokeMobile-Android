@@ -1,14 +1,23 @@
 package com.app.cellstudio.data.api
 
-import com.app.cellstudio.data.entity.MovieDataModel
+import com.app.cellstudio.data.entity.PokemonTCGCardDataResponseModel
+import com.app.cellstudio.data.entity.PokemonTCGSetDataResponseModel
 import io.reactivex.Observable
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
-    @GET(ApiRoutes.MOVIE)
-    fun getMoviePages() : Observable<List<String>>
+    @GET(ApiRoutes.SETS)
+    fun getSets(@Query("page") page: Int,
+                @Query("pageSize") pageSize: Int
+    ): Observable<PokemonTCGSetDataResponseModel>
 
-    @GET("{path}")
-    fun getMoviePage(@Path("path") path: String): Observable<List<MovieDataModel>>
+    @GET(ApiRoutes.CARDS)
+    fun getCards(@Query("setCode") setCode: String,
+                 @Query("page") page: Int,
+                 @Query("pageSize") pageSize: Int): Observable<PokemonTCGCardDataResponseModel>
+
+    //TODO: Combine both
+    @GET(ApiRoutes.CARDS)
+    fun searchCards(@Query("name") name: String): Observable<PokemonTCGCardDataResponseModel>
 }

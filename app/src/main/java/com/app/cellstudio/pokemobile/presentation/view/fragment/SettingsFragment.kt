@@ -1,9 +1,9 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment
+package com.app.cellstudio.pokemobile.presentation.view.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import com.app.cellstudio.androidkotlincleanboilerplate.R
+import com.app.cellstudio.pokemobile.R
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : BaseFragment() {

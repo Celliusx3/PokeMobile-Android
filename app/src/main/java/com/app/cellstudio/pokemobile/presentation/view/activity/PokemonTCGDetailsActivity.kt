@@ -1,21 +1,20 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.activity
+package com.app.cellstudio.pokemobile.presentation.view.activity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.app.cellstudio.androidkotlincleanboilerplate.BaseApplication
-import com.app.cellstudio.androidkotlincleanboilerplate.R
-import com.app.cellstudio.androidkotlincleanboilerplate.di.modules.PokemonTCGDetailsModule
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.viewmodel.PokemonTCGDetailsViewModel
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.util.image.BaseImageLoader
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.adapter.PokemonTCGCardsAdapter
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.adapter.PokemonTCGSetsAdapter
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component.OnEndlessScrollListener
 import com.app.cellstudio.domain.entity.PokemonTCGCard
-import com.stfalcon.imageviewer.StfalconImageViewer
+import com.app.cellstudio.pokemobile.BaseApplication
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.databinding.ActivityPokemonTcgDetailsBinding
+import com.app.cellstudio.pokemobile.di.modules.PokemonTCGDetailsModule
+import com.app.cellstudio.pokemobile.interactor.viewmodel.PokemonTCGDetailsViewModel
+import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter
+import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGSetsAdapter
+import com.app.cellstudio.pokemobile.presentation.view.component.OnEndlessScrollListener
 import kotlinx.android.synthetic.main.activity_pokemon_tcg_details.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
@@ -30,7 +29,6 @@ class PokemonTCGDetailsActivity : BaseActivity() {
     private lateinit var pokemonTCGTitle: String
     private var currentPageInIndex: Int = 1
     private var isLastPage: Boolean = false
-    private var imageViewerPokemonTCGCard: StfalconImageViewer<PokemonTCGCard> ?= null
 
     override fun getLayoutResource(): Int {
         return R.layout.activity_pokemon_tcg_details
@@ -60,6 +58,9 @@ class PokemonTCGDetailsActivity : BaseActivity() {
     override fun onBindData(view: View?, savedInstanceState: Bundle?) {
         super.onBindData(view, savedInstanceState)
 
+        val binding = DataBindingUtil.bind<ActivityPokemonTcgDetailsBinding>(view!!)
+        binding?.viewModel = pokemonTCGDetailsViewModel
+
         getSpecificPage(currentPageInIndex)
         getLoading()
     }
@@ -70,6 +71,11 @@ class PokemonTCGDetailsActivity : BaseActivity() {
             pokemonTCGId = intent.getStringExtra(EXTRA_POKEMON_TCG_ID)
             pokemonTCGTitle = intent.getStringExtra(EXTRA_POKEMON_TCG_TITLE)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        subscribeSelectedModel()
     }
 
     private fun setupPokemonTCGCardsList(pokemonTCGCards: List<PokemonTCGCard>) {
@@ -83,7 +89,7 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (pokemonTCGCardsAdapter?.getItemViewType(position)) {
-                    PokemonTCGSetsAdapter.VIEW_TYPE_MOVIE -> 1
+                    PokemonTCGSetsAdapter.VIEW_TYPE_DATA -> 1
                     PokemonTCGSetsAdapter.VIEW_TYPE_LOADING -> spanCount //number of columns of the grid
                     else -> -1
                 }
@@ -111,16 +117,17 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         val disposable = pokemonTCGCardsAdapter!!.getSelectedModel().compose(bindToLifecycle())
                 .observeOn(getUiScheduler())
                 .subscribe {
-                    imageViewerPokemonTCGCard = StfalconImageViewer.Builder<PokemonTCGCard>(this, pokemonTCGCardsAdapter!!.getData(), ::loadPosterImage)
-                            .withStartPosition(it)
-                            .withImagesMargin(this, R.dimen.image_viewer_padding)
-                            .show()
+//                    imageViewerPokemonTCGCard = StfalconImageViewer.Builder<PokemonTCGCard>(this, pokemonTCGCardsAdapter!!.getData(), ::loadPosterImage)
+////                            .withStartPosition(it)
+////                            .withImagesMargin(this, R.dimen.image_viewer_padding)
+////                            .show()
+                    val test = ArrayList<String>()
+                    for (data in pokemonTCGCardsAdapter!!.getData()) {
+                        test.add(data.imageUrlHiRes)
+                    }
+                    navigator.navigateToImageViewer(this, it, test)
                 }
         compositeDisposable.add(disposable)
-    }
-
-    private fun loadPosterImage(imageView: ImageView, poster: PokemonTCGCard) {
-        BaseImageLoader.getInstance().displayRawImage(poster.imageUrlHiRes, imageView, ImageView.ScaleType.FIT_CENTER)
     }
 
     private fun getSpecificPage(pageNumber: Int) {
@@ -142,7 +149,7 @@ class PokemonTCGDetailsActivity : BaseActivity() {
     }
 
     private fun getLoading() {
-        val disposable = pokemonTCGDetailsViewModel.getIsLoading()
+        val disposable = pokemonTCGDetailsViewModel.getPaginationLoading()
                 .compose(bindToLifecycle())
                 .subscribeOn(getIoScheduler())
                 .observeOn(getUiScheduler())

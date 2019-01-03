@@ -11,9 +11,11 @@
         <variable
             name="listener"
             type="android.view.View.OnClickListener" />
+
+        <import type="android.view.View" />
     </data>
 
-    <com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component.AspectAwareCardView
+    <com.app.cellstudio.pokemobile.presentation.view.component.AspectAwareCardView
         android:id="@+id/cvLirRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,25 +31,51 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/blue_grey_900">
+            android:padding="4dp"
+            android:background="@color/card_view_background">
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/ivLiptsLogo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:padding="4dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitStart"
-                tools:src_rawImage="@{model.logoUrl}" />
+                android:contentDescription="@string/content_description"
+                tools:src_imageFitStart="@{model.logoUrl}" />
 
-            <!--<ImageView-->
-                <!--android:id="@+id/ivLirPoster"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:scaleType="fitXY"-->
-                <!--android:adjustViewBounds="true"-->
-                <!--android:src="@{model.logoUrl}"-->
-                <!--tools:src="@drawable/ic_broken_image_24dp"/>-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="4dp"
+                tools:ignore="RelativeOverlap">
+
+                <TextView
+                    android:id="@+id/tvLiptsStandard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin = "4dp"
+                    android:visibility="@{model.standardLegal ? View.VISIBLE: View.GONE }"
+                    android:background="@drawable/rounded_corner_pink"
+                    android:padding="6dp"
+                    android:text="@string/standard"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/tvLiptsExpanded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin = "4dp"
+                    android:visibility="@{model.expandedLegal ? View.VISIBLE: View.GONE }"
+                    android:background="@drawable/rounded_corner_blue"
+                    android:padding="6dp"
+                    android:text="@string/expanded"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -60,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{model.name}"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textColor="#FFFFFF"
                     tools:text="Hotel Transylvania 3: Summer Vacation"/>
 
@@ -78,7 +106,7 @@
 
         </RelativeLayout>
 
-    </com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component.AspectAwareCardView>
+    </com.app.cellstudio.pokemobile.presentation.view.component.AspectAwareCardView>
 
 </layout>
 

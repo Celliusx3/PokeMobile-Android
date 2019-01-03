@@ -1,4 +1,4 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.util
+package com.app.cellstudio.pokemobile.presentation.util
 
 import android.graphics.drawable.Drawable
 import android.text.TextWatcher
@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.util.image.BaseImageLoader
+import com.app.cellstudio.pokemobile.presentation.util.image.BaseImageLoader
 
 @BindingAdapter("visible")
 fun setVisible(view: View, visible: Boolean) {
@@ -41,6 +41,11 @@ fun setImageResource(imageView: ImageView, resource: Int) {
 @BindingAdapter("src_rawImage")
 fun setImageResourceFitCenter(imageView: ImageView, resource: String) {
     BaseImageLoader.getInstance().displayRawImage(resource, imageView, imageView.scaleType)
+}
+
+@BindingAdapter("src_imageFitStart")
+fun setImageResourceFitStart(imageView: ImageView, resource: String) {
+    BaseImageLoader.getInstance().displayRawImage(resource, imageView, ImageView.ScaleType.FIT_START)
 }
 
 @BindingAdapter("textWatcher")

@@ -5,26 +5,29 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 
-class DisableSwipeViewPager : ViewPager {
+class PhotoViewViewPager : ViewPager {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        try {
+            return super.onInterceptTouchEvent(ev)
+        } catch (ex: IllegalArgumentException) {
+            ex.printStackTrace()
+        }
+
         return false
     }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
+        try {
+            return super.onTouchEvent(ev)
+        } catch (ex: IllegalArgumentException) {
+            ex.printStackTrace()
+        }
+
         return false
     }
-
-    override fun setCurrentItem(item: Int, smoothScroll: Boolean) {
-        super.setCurrentItem(item, false)
-    }
-
-    override fun setCurrentItem(item: Int) {
-        super.setCurrentItem(item, false)
-    }
 }
-
 

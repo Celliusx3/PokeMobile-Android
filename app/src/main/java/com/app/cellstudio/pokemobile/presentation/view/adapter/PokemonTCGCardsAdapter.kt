@@ -1,13 +1,13 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.adapter
+package com.app.cellstudio.pokemobile.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.app.cellstudio.androidkotlincleanboilerplate.R
-import com.app.cellstudio.androidkotlincleanboilerplate.databinding.ListItemPokemonTcgCardBinding
 import com.app.cellstudio.domain.entity.PokemonTCGCard
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.databinding.ListItemPokemonTcgCardBinding
 import io.reactivex.subjects.PublishSubject
 
 class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,6 +20,7 @@ class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : 
         lateinit var binding: ListItemPokemonTcgCardBinding
 
         constructor(view: View) : super(view)
+
         constructor(binding: ListItemPokemonTcgCardBinding) : this(binding.root) {
             this.binding = binding
         }
@@ -37,7 +38,7 @@ class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : 
                 val v2 = layoutInflater.inflate(R.layout.loading_bar, parent, false)
                 LoadingViewHolder(v2)
             }
-            VIEW_TYPE_MOVIE -> {
+            VIEW_TYPE_DATA -> {
                 val binding = DataBindingUtil
                         .inflate<ListItemPokemonTcgCardBinding>(layoutInflater, R.layout.list_item_pokemon_tcg_card, parent, false)
                 ViewHolder(binding)
@@ -53,8 +54,8 @@ class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : 
 
     override fun onBindViewHolder(baseHolder: RecyclerView.ViewHolder, position: Int) {
         if (baseHolder is ViewHolder) {
-
-            baseHolder.binding.model = models[position]
+            val model = models[position]
+            baseHolder.binding.model = model
             baseHolder.binding.setListener {
                 val pos = baseHolder.adapterPosition
                 if (pos >= 0) {
@@ -72,7 +73,7 @@ class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : 
     override fun getItemViewType(position: Int): Int {
         return if (loading && position == itemCount - 1) {
             VIEW_TYPE_LOADING
-        } else VIEW_TYPE_MOVIE
+        } else VIEW_TYPE_DATA
     }
 
     fun setLoading(loading: Boolean) {
@@ -99,12 +100,18 @@ class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : 
         notifyItemRangeInserted(start, newItemCount)
     }
 
+    fun renewData(models: List<PokemonTCGCard>) {
+        this.models.clear()
+        this.models.addAll(models)
+        notifyDataSetChanged()
+    }
+
     fun getSelectedModel(): PublishSubject<Int> {
         return selectedModel
     }
 
     companion object {
-        const val VIEW_TYPE_MOVIE = 0
+        const val VIEW_TYPE_DATA = 0
         const val VIEW_TYPE_LOADING = 1
     }
 }

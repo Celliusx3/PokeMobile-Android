@@ -1,13 +1,13 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment
+package com.app.cellstudio.pokemobile.presentation.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import com.app.cellstudio.androidkotlincleanboilerplate.R
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler.BaseSchedulerProvider
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.navigation.Navigator
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.presentation.navigation.Navigator
 import com.trello.rxlifecycle3.components.support.RxFragment
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -65,6 +65,6 @@ abstract class BaseFragment : RxFragment() {
 
     protected open fun onBindData(view: View?) {}
 
-    protected fun onGetInputData() {}
+    protected open fun onGetInputData() {}
 
 }

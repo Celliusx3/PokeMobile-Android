@@ -1,10 +1,10 @@
-package com.app.cellstudio.androidkotlincleanboilerplate
+package com.app.cellstudio.pokemobile
 
 import android.app.Application
-import com.app.cellstudio.androidkotlincleanboilerplate.di.components.ApplicationComponent
-import com.app.cellstudio.androidkotlincleanboilerplate.di.components.DaggerApplicationComponent
-import com.app.cellstudio.androidkotlincleanboilerplate.di.modules.ApplicationModule
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.util.image.BaseImageLoader
+import com.app.cellstudio.pokemobile.di.components.ApplicationComponent
+import com.app.cellstudio.pokemobile.di.components.DaggerApplicationComponent
+import com.app.cellstudio.pokemobile.di.modules.ApplicationModule
+import com.app.cellstudio.pokemobile.presentation.util.image.BaseImageLoader
 
 class BaseApplication : Application() {
 

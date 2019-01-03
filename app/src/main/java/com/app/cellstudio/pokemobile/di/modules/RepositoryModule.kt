@@ -1,4 +1,4 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.di.modules
+package com.app.cellstudio.pokemobile.di.modules
 
 import com.app.cellstudio.data.http.HttpClient
 import com.app.cellstudio.data.repository.PokemonTCGRepositoryImpl
