@@ -2,9 +2,9 @@ package com.app.cellstudio.pokemobile.presentation.util.image
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import com.app.cellstudio.androidkotlincleanboilerplate.presentation.util.image.ImageLoader
 import com.app.cellstudio.pokemobile.R
 import com.squareup.picasso.Callback
 import com.squareup.picasso.LruCache

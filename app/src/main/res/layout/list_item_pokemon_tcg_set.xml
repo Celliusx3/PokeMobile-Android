@@ -25,8 +25,8 @@
         android:focusable="true"
         android:foreground="@drawable/selector_ripple"
         app:aspect_adjust="height"
-        app:aspect_height="@integer/movie_thumbnail_ratio_height"
-        app:aspect_width="@integer/movie_thumbnail_ratio_width">
+        app:aspect_height="@integer/pokemon_tcg_card_ratio_height"
+        app:aspect_width="@integer/pokemon_tcg_card_ratio_width">
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -63,6 +63,8 @@ dependencies {
 
     // Dagger 2 - Dependency Injection
     implementation "com.google.dagger:dagger:${DAGGER2_VERSION}"
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     kapt "com.google.dagger:dagger-compiler:${DAGGER2_VERSION}"
 
     // RX - for composing asynchronous and event-based programs using observable sequences

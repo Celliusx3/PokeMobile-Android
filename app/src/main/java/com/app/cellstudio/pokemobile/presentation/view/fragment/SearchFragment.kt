@@ -102,10 +102,11 @@ class SearchFragment : BaseFragment() {
         val disposable = pokemonTCGCardsAdapter!!.getSelectedModel().compose(bindToLifecycle())
                 .observeOn(getUiScheduler())
                 .subscribe {
-//                    imageViewerPokemonTCGCard = StfalconImageViewer.Builder<PokemonTCGCard>(this, pokemonTCGCardsAdapter!!.getData(), ::loadPosterImage)
-//                            .withStartPosition(it)
-//                            .withImagesMargin(this, R.dimen.image_viewer_padding)
-//                            .show()
+                    val test = ArrayList<String>()
+                    for (data in pokemonTCGCardsAdapter!!.getData()) {
+                        test.add(data.imageUrlHiRes)
+                    }
+                    navigator.navigateToImageViewer(context, it, test)
                 }
         compositeDisposable.add(disposable)
     }

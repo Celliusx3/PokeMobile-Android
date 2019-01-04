@@ -75,7 +75,7 @@ class MainActivity : BaseActivity() {
         for (page in pages!!) {
             when (page) {
                 Page.HomePage -> bnvMain.menu.add(Menu.NONE, page.pageId, Menu.NONE,
-                        page.title).setIcon(R.drawable.ic_home_white_24dp)
+                        page.title).setIcon(R.drawable.ic_card_white_24dp)
                 Page.SearchPage -> bnvMain.menu.add(Menu.NONE, page.pageId, Menu.NONE,
                         page.title).setIcon(R.drawable.ic_search_white_24dp)
                 Page.SettingsPage -> bnvMain.menu.add(Menu.NONE, page.pageId, Menu.NONE,

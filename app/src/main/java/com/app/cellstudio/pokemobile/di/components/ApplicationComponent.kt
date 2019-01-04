@@ -14,6 +14,6 @@ interface ApplicationComponent {
     fun inject(baseApplication: BaseApplication)
     fun plus(mainModule: MainModule): MainComponent
     fun plus(homeModule: HomeModule): HomeComponent
-    fun plus(movieDetailsModule: PokemonTCGDetailsModule): PokemonTCGDetailsComponent
+    fun plus(pokemonTCGDetailsModule: PokemonTCGDetailsModule): PokemonTCGDetailsComponent
     fun plus(searchModule: SearchModule):SearchComponent
 }

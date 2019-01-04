@@ -29,24 +29,12 @@ class ImageViewActivity : BaseActivity() {
     }
 
     override fun onInject() {
-//        BaseApplication.getInstance()
-//                .getApplicationComponent()
-//                .plus(PokemonTCGDetailsModule())
-//                .inject(this)
     }
 
     override fun onBindView() {
         super.onBindView()
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.setNavigationOnClickListener { onBackPressed() }
-//        sblImageViewer.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
-//        sblImageViewer.setDragDirectMode(SwipeBackLayout.DragDirectMode.VERTICAL)
-//        sblImageViewer.setOnSwipeBackListener(object: SwipeBackLayout.SwipeBackListener {
-//            override fun onViewPositionChanged(fractionAnchor: Float, fractionScreen: Float) {
-//                sblImageViewer.background.alpha = ((1 - fractionScreen) * 255).toInt()
-//            }
-//
-//        })
     }
 
     override fun onBindData(view: View?, savedInstanceState: Bundle?) {

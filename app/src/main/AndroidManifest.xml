@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".presentation.view.activity.PokemonTCGDetailsActivity" />
         <activity android:name=".presentation.view.activity.ImageViewActivity" />
+        <activity android:name=".presentation.view.activity.PokemonDetailsActivity"></activity>
     </application>
 
 </manifest>
