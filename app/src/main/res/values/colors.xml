@@ -11,6 +11,7 @@
     <color name="asset_pressed">#88ffffff</color>
     <color name="asset_focused">#44ffffff</color>
 
+    <color name="card_view_background">#1a1a1a</color>
     <!-- Default Color -->
     <color name="amber_100">#FFECB3</color>
     <color name="amber_200">#FFE082</color>

@@ -1,4 +1,4 @@
-package com.app.cellstudio.androidkotlincleanboilerplate
+package com.app.cellstudio.pokemobile
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

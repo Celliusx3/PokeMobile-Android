@@ -25,10 +25,11 @@ dependencies {
     ext.RX_ANDROID_VERSION = '2.1.0'
     ext.OKHTTP_VERSION = '3.7.0'
     ext.RETROFIT_CONVERTER_GSON_VERSION = '2.3.0'
+    ext.APPCOMPAT_VERSION = '1.1.0-alpha01'
 
     implementation project(':domain')
 
-    implementation "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
+    implementation "androidx.appcompat:appcompat:${APPCOMPAT_VERSION}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"

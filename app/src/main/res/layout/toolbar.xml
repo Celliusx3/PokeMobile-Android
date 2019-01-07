@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -11,5 +11,44 @@
         android:background="@color/transparent"
         app:titleTextColor="@color/white"
         app:title=""
-        tools:title="@string/app_name"/>
+        tools:title="@string/app_name">
+
+        <RelativeLayout
+            android:id="@+id/rlSearchHeader"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etSearchInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/btnSearchClose"
+                android:background="@color/transparent"
+                android:hint="@string/search_here"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/white_70"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@null"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:scrollHorizontally="true"
+                app:backgroundTint="@color/white" />
+
+            <ImageView
+                android:id="@+id/btnSearchClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:padding="16dp"
+                android:src="@drawable/ic_close_white_24dp"
+                android:focusable="true" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 </layout>

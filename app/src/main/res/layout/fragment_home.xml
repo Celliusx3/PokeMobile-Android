@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/rlHome">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvHomeItem"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.app.cellstudio.pokemobile.interactor.viewmodel.HomeViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:nestedScrollingEnabled="false"
-        tools:targetApi="lollipop" />
+        android:layout_height="match_parent"
+        android:id="@+id/clHome">
 
-</RelativeLayout>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.isLoading ? View.GONE: View.VISIBLE}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHomeItem"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:nestedScrollingEnabled="false"
+                tools:targetApi="lollipop" />
+
+            <!-- include bottom sheet -->
+            <include
+                layout="@layout/bottom_sheet_view_pokemon_tcg_set_filter" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <ProgressBar
+            android:id="@+id/pbHome"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE: View.GONE}"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
 

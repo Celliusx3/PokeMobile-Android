@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/rlImageViewer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.app.cellstudio.pokemobile.presentation.view.component.PhotoViewViewPager
+        android:id="@+id/vpImageViewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+</RelativeLayout>
+

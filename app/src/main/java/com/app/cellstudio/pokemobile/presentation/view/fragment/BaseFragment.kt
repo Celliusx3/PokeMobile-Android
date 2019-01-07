@@ -1,13 +1,14 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment
+package com.app.cellstudio.pokemobile.presentation.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import com.app.cellstudio.androidkotlincleanboilerplate.R
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler.BaseSchedulerProvider
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.navigation.Navigator
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
+import com.app.cellstudio.pokemobile.presentation.navigation.Navigator
 import com.trello.rxlifecycle3.components.support.RxFragment
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -22,9 +23,11 @@ abstract class BaseFragment : RxFragment() {
     lateinit var scheduler: BaseSchedulerProvider
 
     protected val compositeDisposable = CompositeDisposable()
-
+    
     @LayoutRes
     protected abstract fun getLayoutResource(): Int
+
+    protected abstract fun getViewModel(): ViewModel?
 
     protected fun getUiScheduler(): Scheduler{
         return scheduler.ui()
@@ -51,7 +54,20 @@ abstract class BaseFragment : RxFragment() {
         onGetInputData()
         onInject()
         onBindView(view)
+
+        getViewModel()?.onCreateView()
+
         onBindData(view)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getViewModel()?.onAttachView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getViewModel()?.onDetachView()
     }
 
     override fun onDestroy() {
@@ -59,12 +75,13 @@ abstract class BaseFragment : RxFragment() {
         super.onDestroy()
     }
 
-    protected open fun onBindView(view: View?) {}
+    protected open fun onBindView(view: View?) {
+    }
 
     protected open fun onInject() {}
 
     protected open fun onBindData(view: View?) {}
 
-    protected fun onGetInputData() {}
+    protected open fun onGetInputData() {}
 
 }

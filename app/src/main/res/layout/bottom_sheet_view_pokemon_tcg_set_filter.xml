@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rlPokemonTCGSetFilter"
+    android:background="#0D0D0D"
+    app:behavior_peekHeight="?attr/actionBarSize"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    
+    <RelativeLayout
+        android:id="@+id/rlFilterMain"
+        android:paddingStart = "16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        tools:ignore="RtlSymmetry">
+
+        <TextView
+            android:id="@+id/tvFilterTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/filter"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvApply"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Apply"
+            android:visibility="gone"
+            android:padding="16dp"
+            android:background="@drawable/selector_ripple"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/ivFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_filter_list_white_24dp"
+            android:padding="16dp"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlFilterMain">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart = "16dp"
+            android:paddingEnd = "16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llFilterSeries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvFilterSeries"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Series"
+                    android:textSize="16sp"
+                    android:textColor="@color/white" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cgFilterSeries"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingVertical="8dp"
+                    app:chipSpacingHorizontal="8dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llFilterLegal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvFilterLegal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="Legal"/>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cgFilterLegal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingVertical="8dp"
+                    app:chipSpacingHorizontal="8dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

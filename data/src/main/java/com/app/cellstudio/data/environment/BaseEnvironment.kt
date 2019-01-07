@@ -39,6 +39,6 @@ class BaseEnvironment(val context: Context) : Environment {
     }
 
     override fun getBaseUrl(): String {
-        return "https://tv-v2.api-fetch.website/"
+        return "https://api.pokemontcg.io/v1/"
     }
 }

@@ -1,4 +1,4 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.di.modules
+package com.app.cellstudio.pokemobile.di.modules
 
 import com.app.cellstudio.domain.interactor.MainInteractor
 import com.app.cellstudio.domain.interactor.PokemonTCGInteractor

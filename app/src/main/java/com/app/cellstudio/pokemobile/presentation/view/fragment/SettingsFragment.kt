@@ -1,12 +1,16 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment
+package com.app.cellstudio.pokemobile.presentation.view.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import com.app.cellstudio.androidkotlincleanboilerplate.R
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : BaseFragment() {
+    override fun getViewModel(): ViewModel? {
+        return null
+    }
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_settings
