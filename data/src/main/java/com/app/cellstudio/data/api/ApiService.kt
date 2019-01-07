@@ -8,9 +8,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET(ApiRoutes.SETS)
-    fun getSets(@Query("page") page: Int,
-                @Query("pageSize") pageSize: Int
-    ): Observable<PokemonTCGSetDataResponseModel>
+    fun getSets(): Observable<PokemonTCGSetDataResponseModel>
 
     @GET(ApiRoutes.CARDS)
     fun getCards(@Query("setCode") setCode: String,

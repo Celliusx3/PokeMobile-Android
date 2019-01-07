@@ -6,6 +6,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.navigation.Navigator
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import io.reactivex.Scheduler
@@ -29,6 +30,8 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     protected abstract fun getRootView(): View
 
+    protected abstract fun getViewModel(): ViewModel?
+
     protected fun getUiScheduler(): Scheduler{
         return scheduler.ui()
     }
@@ -51,7 +54,20 @@ abstract class BaseActivity : RxAppCompatActivity() {
         onGetInputData(savedInstanceState)
         onInject()
         onBindView()
+
+        getViewModel()?.onCreateView()
+
         onBindData(getRootView(), savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getViewModel()?.onAttachView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getViewModel()?.onDetachView()
     }
 
     override fun onDestroy() {

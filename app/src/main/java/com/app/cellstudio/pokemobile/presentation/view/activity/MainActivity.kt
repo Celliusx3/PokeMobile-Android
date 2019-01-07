@@ -12,6 +12,7 @@ import com.app.cellstudio.pokemobile.BaseApplication
 import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.di.modules.MainModule
 import com.app.cellstudio.pokemobile.interactor.viewmodel.MainViewModel
+import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.MainPagerAdapter
 import com.app.cellstudio.pokemobile.presentation.view.fragment.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,12 +22,15 @@ import javax.inject.Inject
 
 
 class MainActivity : BaseActivity() {
-
     @Inject
     lateinit var mainViewModel: MainViewModel
 
     private lateinit var mainPagerAdapter: MainPagerAdapter
     private lateinit var fragmentPages: List<Page>
+
+    override fun getViewModel(): ViewModel {
+        return mainViewModel
+    }
 
     override fun getLayoutResource(): Int {
         return R.layout.activity_main
@@ -94,8 +98,12 @@ class MainActivity : BaseActivity() {
 
     private fun setPage(pageId: Int) {
         val pagePosition = mainPagerAdapter.getPagePositionById(pageId)
+        var pageTitle = mainPagerAdapter.getPageTitle(pagePosition).toString()
+        if (pageTitle == Page.HomePage.title) {
+            pageTitle = resources.getString(R.string.app_name)
+        }
+        setToolbarTitle(pageTitle)
         dsvpMain.currentItem = pagePosition
-        setToolbarTitle(mainPagerAdapter.getPageTitle(pagePosition).toString())
     }
 
     private fun setupMainPagerAdapter(pages: List<Page>) {

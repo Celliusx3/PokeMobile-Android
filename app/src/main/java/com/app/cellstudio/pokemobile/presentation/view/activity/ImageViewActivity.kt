@@ -5,16 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.ImagePagerAdapter
 import kotlinx.android.synthetic.main.activity_image_view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
 class ImageViewActivity : BaseActivity() {
-
     private lateinit var imageUrls: List<String>
     private var initialPos: Int = 0
     private lateinit var imagePagerAdapter: ImagePagerAdapter
+
+    override fun getViewModel(): ViewModel? {
+        return null
+    }
 
     override fun getLayoutResource(): Int {
         return R.layout.activity_image_view

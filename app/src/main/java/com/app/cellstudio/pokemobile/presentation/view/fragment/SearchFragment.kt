@@ -10,13 +10,14 @@ import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.databinding.FragmentSearchBinding
 import com.app.cellstudio.pokemobile.di.modules.SearchModule
 import com.app.cellstudio.pokemobile.interactor.viewmodel.SearchViewModel
+import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter
-import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGSetsAdapter
+import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter.Companion.VIEW_TYPE_DATA
+import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter.Companion.VIEW_TYPE_LOADING
 import kotlinx.android.synthetic.main.fragment_search.*
 import javax.inject.Inject
 
 class SearchFragment : BaseFragment() {
-
     @Inject
     lateinit var searchViewModel: SearchViewModel
 
@@ -24,6 +25,10 @@ class SearchFragment : BaseFragment() {
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_search
+    }
+
+    override fun getViewModel(): ViewModel {
+        return searchViewModel
     }
 
     override fun onInject() {
@@ -81,8 +86,8 @@ class SearchFragment : BaseFragment() {
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (pokemonTCGCardsAdapter?.getItemViewType(position)) {
-                    PokemonTCGSetsAdapter.VIEW_TYPE_DATA -> 1
-                    PokemonTCGSetsAdapter.VIEW_TYPE_LOADING -> spanCount //number of columns of the grid
+                    VIEW_TYPE_DATA -> 1
+                    VIEW_TYPE_LOADING -> spanCount //number of columns of the grid
                     else -> -1
                 }
             }

@@ -12,15 +12,16 @@ import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.databinding.ActivityPokemonTcgDetailsBinding
 import com.app.cellstudio.pokemobile.di.modules.PokemonTCGDetailsModule
 import com.app.cellstudio.pokemobile.interactor.viewmodel.PokemonTCGDetailsViewModel
+import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter
-import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGSetsAdapter
+import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter.Companion.VIEW_TYPE_DATA
+import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter.Companion.VIEW_TYPE_LOADING
 import com.app.cellstudio.pokemobile.presentation.view.component.OnEndlessScrollListener
 import kotlinx.android.synthetic.main.activity_pokemon_tcg_details.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
 class PokemonTCGDetailsActivity : BaseActivity() {
-
     @Inject
     lateinit var pokemonTCGDetailsViewModel: PokemonTCGDetailsViewModel
 
@@ -29,6 +30,10 @@ class PokemonTCGDetailsActivity : BaseActivity() {
     private lateinit var pokemonTCGTitle: String
     private var currentPageInIndex: Int = 1
     private var isLastPage: Boolean = false
+
+    override fun getViewModel(): ViewModel? {
+        return pokemonTCGDetailsViewModel
+    }
 
     override fun getLayoutResource(): Int {
         return R.layout.activity_pokemon_tcg_details
@@ -89,8 +94,8 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (pokemonTCGCardsAdapter?.getItemViewType(position)) {
-                    PokemonTCGSetsAdapter.VIEW_TYPE_DATA -> 1
-                    PokemonTCGSetsAdapter.VIEW_TYPE_LOADING -> spanCount //number of columns of the grid
+                    VIEW_TYPE_DATA -> 1
+                    VIEW_TYPE_LOADING -> spanCount //number of columns of the grid
                     else -> -1
                 }
             }

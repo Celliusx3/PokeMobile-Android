@@ -14,8 +14,8 @@ class PokemonTCGRepositoryImpl(private val httpClient: HttpClient) : PokemonTCGR
         return httpClient.getApiService()
     }
 
-    override fun getPokemonTCGSets(page: Int, pageSize: Int): Observable<List<PokemonTCGSet>> {
-        return getApiService().getSets(page, pageSize)
+    override fun getAllPokemonTCGSets(): Observable<List<PokemonTCGSet>> {
+        return getApiService().getSets()
                 .map { it.sets }
                 .flatMap { Observable.fromIterable(it) }
                 .map { PokemonTCGSetDataEntityMapper.create(it) }
