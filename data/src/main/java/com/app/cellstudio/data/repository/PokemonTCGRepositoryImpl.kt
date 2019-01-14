@@ -23,8 +23,8 @@ class PokemonTCGRepositoryImpl(private val httpClient: HttpClient) : PokemonTCGR
                 .toObservable()
     }
 
-    override fun getPokemonTCGCards(code: String, page: Int, pageSize: Int): Observable<List<PokemonTCGCard>> {
-        return getApiService().getCards(code, page, pageSize)
+    override fun getPokemonTCGCards(code: String, pageSize: Int): Observable<List<PokemonTCGCard>> {
+        return getApiService().getCards(code, pageSize)
                 .map{it.cards}
                 .flatMap { Observable.fromIterable(it) }
                 .map { PokemonTCGCardDataEntityMapper.create(it) }
@@ -39,5 +39,20 @@ class PokemonTCGRepositoryImpl(private val httpClient: HttpClient) : PokemonTCGR
                 .map { PokemonTCGCardDataEntityMapper.create(it) }
                 .toList()
                 .toObservable()
+    }
+
+    override fun getPokemonTCGCardSupertypes(): Observable<List<String>> {
+        return getApiService().getSupertypes()
+                .map{it.supertypes}
+    }
+
+    override fun getPokemonTCGCardSubtypes(): Observable<List<String>> {
+        return getApiService().getSubtypes()
+                .map{it.subtypes}
+    }
+
+    override fun getPokemonTCGCardTypes(): Observable<List<String>> {
+        return getApiService().getTypes()
+                .map{it.types}
     }
 }

@@ -5,8 +5,12 @@ import com.app.cellstudio.domain.entity.PokemonTCGCard
 import io.reactivex.Observable
 
 interface PokemonTCGDetailsViewModel: ViewModel {
-    fun getPokemonTCGCards(set: String, page: Int): Observable<List<PokemonTCGCard>>
-    fun getPaginationLoading(): Observable<Boolean>
-    fun getInitialLoading(): ObservableBoolean
+    fun getAllPokemonTCGCardsInASet(set: String)
+    fun getPokemonTCGCardsToShow(): Observable<List<PokemonTCGCard>>
+    fun getIsLoading(): ObservableBoolean
+    fun getFilterTypesToShow(): Observable<List<String>>
+    fun getFilterSubtypesToShow(): Observable<List<String>>
+    fun getFilterSupertypesToShow(): Observable<List<String>>
 
+    fun onApplyClicked(filterCardType: List<String>, filterType: List<String>, filterSubtype: List<String>)
 }

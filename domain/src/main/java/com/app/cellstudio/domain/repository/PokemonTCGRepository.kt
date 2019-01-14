@@ -6,6 +6,9 @@ import io.reactivex.Observable
 
 interface PokemonTCGRepository {
     fun getAllPokemonTCGSets(): Observable<List<PokemonTCGSet>>
-    fun getPokemonTCGCards(code: String, page: Int, pageSize: Int): Observable<List<PokemonTCGCard>>
+    fun getPokemonTCGCards(code: String, pageSize: Int): Observable<List<PokemonTCGCard>>
     fun searchPokemonTCGCards(name: String): Observable<List<PokemonTCGCard>>
+    fun getPokemonTCGCardTypes(): Observable<List<String>>
+    fun getPokemonTCGCardSubtypes(): Observable<List<String>>
+    fun getPokemonTCGCardSupertypes(): Observable<List<String>>
 }

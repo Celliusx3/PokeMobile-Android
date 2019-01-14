@@ -1,9 +1,14 @@
 package com.app.cellstudio.pokemobile.presentation.view.activity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.cellstudio.domain.entity.PokemonTCGCard
@@ -14,10 +19,10 @@ import com.app.cellstudio.pokemobile.di.modules.PokemonTCGDetailsModule
 import com.app.cellstudio.pokemobile.interactor.viewmodel.PokemonTCGDetailsViewModel
 import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter
-import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter.Companion.VIEW_TYPE_DATA
-import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter.Companion.VIEW_TYPE_LOADING
-import com.app.cellstudio.pokemobile.presentation.view.component.OnEndlessScrollListener
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_pokemon_tcg_details.*
+import kotlinx.android.synthetic.main.bottom_sheet_view_pokemon_tcg_card_filter.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
@@ -28,8 +33,12 @@ class PokemonTCGDetailsActivity : BaseActivity() {
     private var pokemonTCGCardsAdapter: PokemonTCGCardsAdapter? = null
     private lateinit var pokemonTCGId: String
     private lateinit var pokemonTCGTitle: String
-    private var currentPageInIndex: Int = 1
-    private var isLastPage: Boolean = false
+
+    private var typesChips: MutableList<Chip> = ArrayList()
+    private var subtypesChips: MutableList<Chip> = ArrayList()
+    private var supertypesChips: MutableList<Chip> = ArrayList()
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<RelativeLayout>
 
     override fun getViewModel(): ViewModel? {
         return pokemonTCGDetailsViewModel
@@ -58,6 +67,7 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         super.onBindView()
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.setNavigationOnClickListener { onBackPressed() }
+        bottomSheetBehavior = BottomSheetBehavior.from(rlPokemonTCGSetFilter)
     }
 
     override fun onBindData(view: View?, savedInstanceState: Bundle?) {
@@ -66,8 +76,15 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         val binding = DataBindingUtil.bind<ActivityPokemonTcgDetailsBinding>(view!!)
         binding?.viewModel = pokemonTCGDetailsViewModel
 
-        getSpecificPage(currentPageInIndex)
-        getLoading()
+        pokemonTCGDetailsViewModel.getAllPokemonTCGCardsInASet(pokemonTCGId)
+        getPokemonTCGCardsToShow()
+        getFilterSubtypesToShow()
+        getFilterSupertypesToShow()
+        getFilterTypesToShow()
+
+        onBottomSheetViewClick()
+        onBottomSheetViewStateChanged()
+        onApplyClicked()
     }
 
     override fun onGetInputData(savedInstanceState: Bundle?) {
@@ -85,32 +102,16 @@ class PokemonTCGDetailsActivity : BaseActivity() {
 
     private fun setupPokemonTCGCardsList(pokemonTCGCards: List<PokemonTCGCard>) {
         if (pokemonTCGCardsAdapter != null) {
-            pokemonTCGCardsAdapter!!.updateData(pokemonTCGCards)
+            pokemonTCGCardsAdapter!!.refreshData(pokemonTCGCards)
             return
         }
 
         val spanCount = 2
         val layoutManager = GridLayoutManager(this, spanCount)
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when (pokemonTCGCardsAdapter?.getItemViewType(position)) {
-                    VIEW_TYPE_DATA -> 1
-                    VIEW_TYPE_LOADING -> spanCount //number of columns of the grid
-                    else -> -1
-                }
-            }
-        }
         rvPokemonTCGCards.layoutManager = layoutManager
         pokemonTCGCardsAdapter = PokemonTCGCardsAdapter(pokemonTCGCards.toMutableList())
         rvPokemonTCGCards.adapter = pokemonTCGCardsAdapter
         rvPokemonTCGCards.isNestedScrollingEnabled = false
-        rvPokemonTCGCards.addOnScrollListener(object : OnEndlessScrollListener() {
-            override fun onLoadMore() {
-                if (!isLastPage && pokemonTCGCardsAdapter != null && !pokemonTCGCardsAdapter!!.getLoading()) {
-                    getSpecificPage(currentPageInIndex)
-                }
-            }
-        })
         subscribeSelectedModel()
 
     }
@@ -131,31 +132,190 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         compositeDisposable.add(disposable)
     }
 
-    private fun getSpecificPage(pageNumber: Int) {
-         val disposable = pokemonTCGDetailsViewModel.getPokemonTCGCards(pokemonTCGId, pageNumber)
+    private fun getPokemonTCGCardsToShow() {
+         val disposable = pokemonTCGDetailsViewModel.getPokemonTCGCardsToShow()
                 .compose(bindToLifecycle())
                 .subscribeOn(getIoScheduler())
                 .observeOn(getUiScheduler())
                 .subscribe {
+                    rlFilterEmpty.visibility = if (it.isEmpty()) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
+                    rvPokemonTCGCards.visibility = if (it.isEmpty()) {
+                        View.GONE
+                    } else {
+                        View.VISIBLE
+                    }
                     if (it.isEmpty()) {
-                        isLastPage = true
                         return@subscribe
                     }
-
-                    currentPageInIndex ++
                     this.setupPokemonTCGCardsList(it)
                 }
 
         compositeDisposable.add(disposable)
     }
 
-    private fun getLoading() {
-        val disposable = pokemonTCGDetailsViewModel.getPaginationLoading()
+    private fun getFilterSubtypesToShow() {
+        val disposable = pokemonTCGDetailsViewModel.getFilterSubtypesToShow()
                 .compose(bindToLifecycle())
                 .subscribeOn(getIoScheduler())
                 .observeOn(getUiScheduler())
-                .subscribe { isLoading -> this.pokemonTCGCardsAdapter?.setLoading(isLoading) }
+                .subscribe {
+                    for (type in it) {
+                        val chip = Chip(this)
+                        chip.text = type
+                        chip.setTextColor(ContextCompat.getColor(this, R.color.white))
+                        chip.isCheckable = true
+
+                        chip.setOnCheckedChangeListener { _, isChecked ->
+                            chip.setChipBackgroundColorResource(if (isChecked) R.color.blue_A200 else R.color.card_view_background)
+                        }
+
+                        chip.isChecked = true
+
+                        cgFilterSubType.addView(chip)
+                        subtypesChips.add(chip)
+                    }
+                }
+
         compositeDisposable.add(disposable)
+    }
+
+    private fun getFilterSupertypesToShow() {
+        val disposable = pokemonTCGDetailsViewModel.getFilterSupertypesToShow()
+                .compose(bindToLifecycle())
+                .subscribeOn(getIoScheduler())
+                .observeOn(getUiScheduler())
+                .subscribe {
+                    for (type in it) {
+                        val chip = Chip(this)
+                        chip.text = type
+                        chip.setTextColor(ContextCompat.getColor(this, R.color.white))
+                        chip.isCheckable = true
+
+                        chip.setOnCheckedChangeListener { _, isChecked ->
+                            chip.setChipBackgroundColorResource(if (isChecked) R.color.green_A200 else R.color.card_view_background)
+                        }
+
+                        chip.isChecked = true
+
+                        cgFilterCardType.addView(chip)
+                        supertypesChips.add(chip)
+                    }
+                }
+
+        compositeDisposable.add(disposable)
+    }
+
+    private fun getFilterTypesToShow() {
+        val disposable = pokemonTCGDetailsViewModel.getFilterTypesToShow()
+                .compose(bindToLifecycle())
+                .subscribeOn(getIoScheduler())
+                .observeOn(getUiScheduler())
+                .subscribe {
+                    for (type in it) {
+                        val chip = Chip(this)
+                        chip.text = type
+                        chip.setTextColor(ContextCompat.getColor(this, R.color.white))
+                        chip.isCheckable = true
+
+                        chip.setOnCheckedChangeListener { _, isChecked ->
+                            chip.setChipBackgroundColorResource(if (isChecked) R.color.pink_A200 else R.color.card_view_background)
+                        }
+
+                        chip.isChecked = true
+
+                        cgFilterType.addView(chip)
+                        typesChips.add(chip)
+                    }
+                }
+
+        compositeDisposable.add(disposable)
+    }
+
+    /**
+     * Bottom Sheet View
+     */
+    private fun onBottomSheetViewClick () {
+        rlPokemonTCGSetFilter.setOnClickListener {
+            bottomSheetBehavior.state = if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) BottomSheetBehavior.STATE_EXPANDED else BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
+
+    private fun onBottomSheetViewStateChanged() {
+        bottomSheetBehavior.setBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback() {
+            @SuppressLint("SwitchIntDef")
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        ivFilter.animate().alpha(0.0f)
+                                .setDuration(300)
+                                .setListener(object: AnimatorListenerAdapter() {
+                                    override fun onAnimationEnd(animation: Animator?) {
+                                        super.onAnimationEnd(animation)
+                                        ivFilter.visibility = View.GONE
+                                    }
+                                })
+                        tvApply.animate().alpha(1.0f)
+                                .setDuration(300)
+                                .setListener(object: AnimatorListenerAdapter() {
+                                    override fun onAnimationEnd(animation: Animator?) {
+                                        super.onAnimationEnd(animation)
+                                        tvApply.visibility = View.VISIBLE
+                                    }
+                                })
+                    }
+
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        tvApply.animate().alpha(0.0f)
+                                .setDuration(300)
+                                .setListener(object: AnimatorListenerAdapter() {
+                                    override fun onAnimationEnd(animation: Animator?) {
+                                        super.onAnimationEnd(animation)
+                                        tvApply.visibility = View.GONE
+                                    }
+                                })
+                        ivFilter.animate().alpha(1.0f)
+                                .setDuration(300)
+                                .setListener(object: AnimatorListenerAdapter() {
+                                    override fun onAnimationEnd(animation: Animator?) {
+                                        super.onAnimationEnd(animation)
+                                        ivFilter.visibility = View.VISIBLE
+                                    }
+                                })
+                    }
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+
+        })
+    }
+
+    private fun onApplyClicked() {
+        tvApply.setOnClickListener {
+            val typesChecked = ArrayList<String>()
+            val subtypesChecked = ArrayList<String>()
+            val supertypesChecked = ArrayList<String>()
+
+            for (checkBox in typesChips.filter {it.isChecked}) {
+                typesChecked.add(checkBox.text.toString())
+            }
+
+            for (checkBox in subtypesChips.filter {it.isChecked}) {
+                subtypesChecked.add(checkBox.text.toString())
+            }
+
+            for (checkBox in supertypesChips.filter {it.isChecked}) {
+                supertypesChecked.add(checkBox.text.toString())
+            }
+
+            pokemonTCGDetailsViewModel.onApplyClicked(supertypesChecked, typesChecked, subtypesChecked)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
     }
 
     companion object {
@@ -164,6 +324,7 @@ class PokemonTCGDetailsActivity : BaseActivity() {
 
         private const val EXTRA_POKEMON_TCG_ID = "EXTRA_POKEMON_TCG_ID"
         private const val EXTRA_POKEMON_TCG_TITLE = "EXTRA_POKEMON_TCG_TITLE"
+        private const val EXTRA_POKEMON_TCG_SET_SIZE = "EXTRA_POKEMON_TCG_SET_SIZE"
 
         fun getCallingIntent(context: Context, pokemonTCGId: String, pokemonTCGTitle: String): Intent {
             val intent = Intent(context, PokemonTCGDetailsActivity::class.java)

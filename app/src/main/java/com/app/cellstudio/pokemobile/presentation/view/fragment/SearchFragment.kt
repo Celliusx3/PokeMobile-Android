@@ -77,7 +77,7 @@ class SearchFragment : BaseFragment() {
 
     private fun setupPokemonTCGCardsList(pokemonTCGCards: List<PokemonTCGCard>) {
         if (pokemonTCGCardsAdapter != null) {
-            pokemonTCGCardsAdapter!!.renewData(pokemonTCGCards)
+            pokemonTCGCardsAdapter!!.refreshData(pokemonTCGCards)
             return
         }
 
