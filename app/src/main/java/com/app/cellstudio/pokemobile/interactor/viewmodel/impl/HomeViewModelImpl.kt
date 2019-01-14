@@ -47,6 +47,14 @@ class HomeViewModelImpl(private val pokemonTCGInteractor: PokemonTCGInteractor,
         return isLoading
     }
 
+    override fun onApplyClicked(filterLegal: List<String>, filterSeries: List<String>) {
+        if (allPokemonTCGSets != null) {
+            val legalFiltered = applyLegalFilter(allPokemonTCGSets!!, filterLegal)
+            val seriesFiltered = applySeriesFilter(legalFiltered, filterSeries)
+            pokemonTCGSetsToShow.onNext(seriesFiltered)
+        }
+    }
+
     private fun applyLegalFilter(pokemonTCGSets: List<PokemonTCGSet>, legalToShow: List<String>): List<PokemonTCGSet> {
         return pokemonTCGSets.filter {
             var shouldShow = false
@@ -63,14 +71,6 @@ class HomeViewModelImpl(private val pokemonTCGInteractor: PokemonTCGInteractor,
 
     private fun applySeriesFilter(pokemonTCGSets: List<PokemonTCGSet>, seriesToShow: List<String>): List<PokemonTCGSet> {
         return pokemonTCGSets.filter { seriesToShow.contains(it.series) }
-    }
-
-    override fun onApplyClicked(filterLegal: List<String>, filterSeries: List<String>) {
-        if (allPokemonTCGSets != null) {
-            val legalFiltered = applyLegalFilter(allPokemonTCGSets!!, filterLegal)
-            val seriesFiltered = applySeriesFilter(legalFiltered, filterSeries)
-            pokemonTCGSetsToShow.onNext(seriesFiltered)
-        }
     }
 
 }

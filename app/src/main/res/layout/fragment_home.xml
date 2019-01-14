@@ -11,10 +11,10 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/clHome">
+        android:id="@+id/rlHome">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -26,9 +26,32 @@
                 android:layout_marginBottom="?attr/actionBarSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
                 android:nestedScrollingEnabled="false"
                 tools:targetApi="lollipop" />
+
+            <RelativeLayout
+                android:id = "@+id/rlFilterEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center" >
+
+                <ImageView
+                    android:id = "@+id/ivFilterEmpty"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:src = "@drawable/ic_sad_white_24dp"
+                    android:contentDescription="@string/content_description"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivFilterEmpty"
+                    android:textColor="@color/white"
+                    android:text = "@string/sorry_no_results_found"/>
+
+            </RelativeLayout>
 
             <!-- include bottom sheet -->
             <include
@@ -40,11 +63,10 @@
             android:id="@+id/pbHome"
             android:visibility="@{viewModel.isLoading ? View.VISIBLE: View.GONE}"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
 
 </layout>
 

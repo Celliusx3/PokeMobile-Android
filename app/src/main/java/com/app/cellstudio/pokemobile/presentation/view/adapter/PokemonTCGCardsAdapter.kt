@@ -26,30 +26,11 @@ class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : 
         }
     }
 
-    class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewHolder: RecyclerView.ViewHolder?
         val layoutInflater = LayoutInflater.from(parent.context)
-
-        viewHolder = when (viewType) {
-            VIEW_TYPE_LOADING -> {
-                val v2 = layoutInflater.inflate(R.layout.loading_bar, parent, false)
-                LoadingViewHolder(v2)
-            }
-            VIEW_TYPE_DATA -> {
-                val binding = DataBindingUtil
-                        .inflate<ListItemPokemonTcgCardBinding>(layoutInflater, R.layout.list_item_pokemon_tcg_card, parent, false)
-                ViewHolder(binding)
-            }
-            else -> {
-                val binding = DataBindingUtil.inflate<ListItemPokemonTcgCardBinding>(layoutInflater, R.layout.list_item_pokemon_tcg_card, parent, false)
-                ViewHolder(binding)
-            }
-        }
-
-        return viewHolder
+        val binding = DataBindingUtil
+                .inflate<ListItemPokemonTcgCardBinding>(layoutInflater, R.layout.list_item_pokemon_tcg_card, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(baseHolder: RecyclerView.ViewHolder, position: Int) {
@@ -66,27 +47,11 @@ class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : 
     }
 
     override fun getItemCount(): Int {
-        val size = models.size
-        return if (loading) size + 1 else size
+        return models.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (loading && position == itemCount - 1) {
-            VIEW_TYPE_LOADING
-        } else VIEW_TYPE_DATA
-    }
-
-    fun setLoading(loading: Boolean) {
-        this.loading = loading
-        if (loading) {
-            notifyItemInserted(itemCount - 1)
-        } else {
-            notifyItemRemoved(itemCount)
-        }
-    }
-
-    fun getLoading():Boolean {
-        return this.loading
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     fun getData(): List<PokemonTCGCard> {
@@ -100,10 +65,15 @@ class PokemonTCGCardsAdapter(private val models: MutableList<PokemonTCGCard>) : 
         notifyItemRangeInserted(start, newItemCount)
     }
 
-    fun renewData(models: List<PokemonTCGCard>) {
+    fun emptyData() {
         this.models.clear()
-        this.models.addAll(models)
         notifyDataSetChanged()
+    }
+
+    fun refreshData(models: List<PokemonTCGCard>) {
+        this.emptyData()
+        this.models.addAll(models)
+        notifyItemRangeInserted(0, models.size)
     }
 
     fun getSelectedModel(): PublishSubject<Int> {

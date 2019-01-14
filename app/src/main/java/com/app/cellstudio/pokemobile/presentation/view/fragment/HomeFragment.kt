@@ -108,6 +108,19 @@ class HomeFragment : BaseFragment() {
                 .subscribeOn(getIoScheduler())
                 .observeOn(getUiScheduler())
                 .subscribe {
+                    rlFilterEmpty.visibility = if (it.isEmpty()) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
+                    rvHomeItem.visibility = if (it.isEmpty()) {
+                        View.GONE
+                    } else {
+                        View.VISIBLE
+                    }
+                    if (it.isEmpty()) {
+                        return@subscribe
+                    }
                     this.setupPokemonTCGSetsList(it) }
 
         compositeDisposable.add(disposable)
@@ -216,6 +229,7 @@ class HomeFragment : BaseFragment() {
                                     }
                                 })
                     }
+
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         tvApply.animate().alpha(0.0f)
                                 .setDuration(300)

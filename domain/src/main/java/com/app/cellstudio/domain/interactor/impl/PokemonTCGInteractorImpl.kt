@@ -7,6 +7,8 @@ import com.app.cellstudio.domain.repository.PokemonTCGRepository
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
+
+
 class PokemonTCGInteractorImpl(private val pokemonTCGRepository: PokemonTCGRepository) : PokemonTCGInteractor {
     private val filterSeriesToShow = PublishSubject.create<List<String>>()
     private val filterLegalToShow = PublishSubject.create<List<String>>()
@@ -23,8 +25,14 @@ class PokemonTCGInteractorImpl(private val pokemonTCGRepository: PokemonTCGRepos
         return pokemonTCGRepository.searchPokemonTCGCards(name)
     }
 
-    override fun getPokemonTCGCards(code: String, page: Int): Observable<List<PokemonTCGCard>> {
-        return pokemonTCGRepository.getPokemonTCGCards(code, page, PAGE_SIZE)
+    override fun getAllPokemonTCGCards(code: String): Observable<List<PokemonTCGCard>> {
+        return pokemonTCGRepository.getPokemonTCGCards(code, PAGE_SIZE)
+                .map {
+                    val regex = Regex("[^0-9]")
+                    return@map it.sortedBy {
+                        regex.replace(it.number, "").toInt()
+                    }
+                }
     }
 
     override fun getAllPokemonTCGSets(isReverseOrder: Boolean): Observable<List<PokemonTCGSet>> {
@@ -43,6 +51,18 @@ class PokemonTCGInteractorImpl(private val pokemonTCGRepository: PokemonTCGRepos
                     if (isReverseOrder) return@map it.asReversed()
                     return@map it
                 }
+    }
+
+    override fun getFilterSupertypesToShow(): Observable<List<String>> {
+        return pokemonTCGRepository.getPokemonTCGCardSupertypes()
+    }
+
+    override fun getFilterSubtypesToShow(): Observable<List<String>> {
+        return pokemonTCGRepository.getPokemonTCGCardSubtypes()
+    }
+
+    override fun getFilterTypesToShow(): Observable<List<String>> {
+        return pokemonTCGRepository.getPokemonTCGCardTypes()
     }
 
     private fun generateFilterSeriesToShow(pokemonTCGSets: List<PokemonTCGSet>): List<String>{
@@ -65,6 +85,6 @@ class PokemonTCGInteractorImpl(private val pokemonTCGRepository: PokemonTCGRepos
     }
 
     companion object {
-        private const val PAGE_SIZE = 10
+        private const val PAGE_SIZE = 1000
     }
 }
