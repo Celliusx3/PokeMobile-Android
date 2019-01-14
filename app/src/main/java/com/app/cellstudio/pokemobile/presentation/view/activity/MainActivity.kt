@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import com.app.cellstudio.domain.entity.Page
@@ -15,6 +16,7 @@ import com.app.cellstudio.pokemobile.interactor.viewmodel.MainViewModel
 import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.MainPagerAdapter
 import com.app.cellstudio.pokemobile.presentation.view.fragment.SearchFragment
+import com.crashlytics.android.Crashlytics
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.concurrent.TimeUnit

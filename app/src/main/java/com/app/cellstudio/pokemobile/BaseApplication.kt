@@ -5,6 +5,8 @@ import com.app.cellstudio.pokemobile.di.components.ApplicationComponent
 import com.app.cellstudio.pokemobile.di.components.DaggerApplicationComponent
 import com.app.cellstudio.pokemobile.di.modules.ApplicationModule
 import com.app.cellstudio.pokemobile.presentation.util.image.BaseImageLoader
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
 
 class BaseApplication : Application() {
 
@@ -25,6 +27,7 @@ class BaseApplication : Application() {
 
     private fun initializeSDKs() {
         BaseImageLoader.getInstance().init(this)
+        Fabric.with(this, Crashlytics())
     }
 
     fun getApplicationComponent() : ApplicationComponent {

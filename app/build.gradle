@@ -2,11 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
     defaultConfig {
-        applicationId "com.app.cellstudio.pokemobile"
         minSdkVersion MIN_SDK_VERSION
         targetSdkVersion TARGET_SDK_VERSION
         versionCode VERSION_CODE
@@ -37,6 +38,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions 'dev'
+    productFlavors {
+        dev {
+            applicationId "com.app.cellstudio.pokemobile.development"
+        }
+
+        prod {
+            applicationId "com.app.cellstudio.pokemobile"
+        }
+    }
 }
 
 dependencies {
@@ -47,9 +59,10 @@ dependencies {
     ext.PICASSO_VERSION = '2.5.2'
     ext.ANDROIDX_VERSION = '1.1.0-alpha01'
     ext.MATERIAL_VERSION = '1.1.0-alpha02'
-    ext.DATABINDING_VERSION = '3.4.0-alpha09'
-    ext.SLIDR_VERSION = '2.0.6'
+    ext.DATABINDING_VERSION = '3.4.0-alpha10'
     ext.PHOTO_VIEW_VERSION = '2.3.0'
+    ext.FIREBASE_CORE_VERSION = '16.0.6'
+    ext.CRASHLYTICS_VERSION = '2.9.8'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:${ANDROIDX_VERSION}"
@@ -82,4 +95,10 @@ dependencies {
 
     // PhotoView
     implementation "com.github.chrisbanes:PhotoView:${PHOTO_VIEW_VERSION}"
+
+    // Firebase
+    implementation "com.google.firebase:firebase-core:${FIREBASE_CORE_VERSION}"
+
+    // Crashlytics
+    implementation "com.crashlytics.sdk.android:crashlytics:${CRASHLYTICS_VERSION}"
 }
