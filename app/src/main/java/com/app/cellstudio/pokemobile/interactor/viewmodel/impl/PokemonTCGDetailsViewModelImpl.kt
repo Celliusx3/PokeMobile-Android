@@ -88,7 +88,8 @@ class PokemonTCGDetailsViewModelImpl(private val pokemonTCGInteractor: PokemonTC
 
     private fun applyTypeFilter(pokemonTCGCards: List<PokemonTCGCard>, typeToShow: List<String>): List<PokemonTCGCard> {
         return pokemonTCGCards.filter { card ->
-            typeToShow.any{ card.types.contains(it) } }
+            // Empty for trainer and energy or type for pokemon
+            card.types.isEmpty() || typeToShow.any{ card.types.contains(it) } }
     }
 
     private fun applySubTypeFilter(pokemonTCGCards: List<PokemonTCGCard>, cardsTypeToShow: List<String>): List<PokemonTCGCard> {
