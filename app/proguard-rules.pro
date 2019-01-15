@@ -32,6 +32,6 @@
 
 # GSON parse
 -keep class com.app.cellstudio.pokemobile.presentation.interactor.model.** { *; }
--keep class com.app.cellstudio.data.entity.** { *; }
+-keep class com.app.cellstudio.pokemobile.data.entity.** { *; }
 
 
