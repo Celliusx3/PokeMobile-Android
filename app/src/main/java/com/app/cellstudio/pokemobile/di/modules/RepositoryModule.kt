@@ -1,8 +1,8 @@
 package com.app.cellstudio.pokemobile.di.modules
 
-import com.app.cellstudio.data.http.HttpClient
-import com.app.cellstudio.data.repository.PokemonTCGRepositoryImpl
-import com.app.cellstudio.domain.repository.PokemonTCGRepository
+import com.app.cellstudio.pokemobile.data.http.HttpClient
+import com.app.cellstudio.pokemobile.data.repository.PokemonTCGRepository
+import com.app.cellstudio.pokemobile.data.repository.impl.PokemonTCGRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

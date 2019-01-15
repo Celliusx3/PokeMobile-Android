@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import com.app.cellstudio.pokemobile.R
-import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.ViewModel
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : BaseFragment() {

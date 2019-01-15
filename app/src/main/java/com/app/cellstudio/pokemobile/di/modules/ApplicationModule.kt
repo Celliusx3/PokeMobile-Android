@@ -2,12 +2,12 @@ package com.app.cellstudio.pokemobile.di.modules
 
 import android.content.Context
 import com.app.cellstudio.pokemobile.BaseApplication
-import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
-import com.app.cellstudio.pokemobile.interactor.scheduler.SchedulerProvider
-import com.app.cellstudio.data.environment.BaseEnvironment
-import com.app.cellstudio.data.environment.Environment
-import com.app.cellstudio.data.http.BaseHttpClient
-import com.app.cellstudio.data.http.HttpClient
+import com.app.cellstudio.pokemobile.presentation.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.presentation.interactor.scheduler.SchedulerProvider
+import com.app.cellstudio.pokemobile.data.environment.BaseEnvironment
+import com.app.cellstudio.pokemobile.data.environment.Environment
+import com.app.cellstudio.pokemobile.data.http.BaseHttpClient
+import com.app.cellstudio.pokemobile.data.http.HttpClient
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

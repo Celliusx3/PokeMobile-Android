@@ -9,13 +9,13 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.app.cellstudio.domain.entity.PokemonTCGSet
+import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGSet
 import com.app.cellstudio.pokemobile.BaseApplication
 import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.databinding.FragmentHomeBinding
 import com.app.cellstudio.pokemobile.di.modules.HomeModule
-import com.app.cellstudio.pokemobile.interactor.viewmodel.HomeViewModel
-import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.HomeViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGSetsAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip

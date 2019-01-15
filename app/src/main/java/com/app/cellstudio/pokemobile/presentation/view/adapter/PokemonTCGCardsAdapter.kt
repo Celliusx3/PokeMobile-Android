@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.app.cellstudio.domain.entity.PokemonTCGCard
+import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGCard
 import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.databinding.ListItemPokemonTcgCardBinding
 import io.reactivex.subjects.PublishSubject

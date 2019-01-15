@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.app.cellstudio.pokemobile.R
-import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
-import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.navigation.Navigator
 import com.trello.rxlifecycle3.components.support.RxFragment
 import io.reactivex.Scheduler

@@ -1,9 +1,9 @@
 package com.app.cellstudio.pokemobile.di.modules
 
-import com.app.cellstudio.domain.interactor.PokemonTCGInteractor
-import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
-import com.app.cellstudio.pokemobile.interactor.viewmodel.PokemonTCGDetailsViewModel
-import com.app.cellstudio.pokemobile.interactor.viewmodel.impl.PokemonTCGDetailsViewModelImpl
+import com.app.cellstudio.pokemobile.domain.interactor.PokemonTCGInteractor
+import com.app.cellstudio.pokemobile.presentation.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.PokemonTCGDetailsViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.impl.PokemonTCGDetailsViewModelImpl
 import dagger.Module
 import dagger.Provides
 
@@ -12,7 +12,7 @@ class PokemonTCGDetailsModule {
 
     @Provides
     fun providePokemonTCGDetailsViewModel(pokemonTCGInteractor: PokemonTCGInteractor,
-                                     provider: BaseSchedulerProvider): PokemonTCGDetailsViewModel {
+                                          provider: BaseSchedulerProvider): PokemonTCGDetailsViewModel {
         return PokemonTCGDetailsViewModelImpl(pokemonTCGInteractor, provider)
     }
 }

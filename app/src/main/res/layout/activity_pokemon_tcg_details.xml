@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.app.cellstudio.pokemobile.interactor.viewmodel.PokemonTCGDetailsViewModel" />
+            type="com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.PokemonTCGDetailsViewModel" />
 
         <variable
             name="listener"
