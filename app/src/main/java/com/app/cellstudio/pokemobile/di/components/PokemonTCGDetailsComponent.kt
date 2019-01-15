@@ -1,7 +1,7 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.di.components
+package com.app.cellstudio.pokemobile.di.components
 
-import com.app.cellstudio.androidkotlincleanboilerplate.di.modules.PokemonTCGDetailsModule
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.activity.PokemonTCGDetailsActivity
+import com.app.cellstudio.pokemobile.di.modules.PokemonTCGDetailsModule
+import com.app.cellstudio.pokemobile.presentation.view.activity.PokemonTCGDetailsActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [PokemonTCGDetailsModule::class])

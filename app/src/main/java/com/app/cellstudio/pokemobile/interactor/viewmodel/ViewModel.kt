@@ -1,3 +1,7 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.interactor.viewmodel
+package com.app.cellstudio.pokemobile.interactor.viewmodel
 
-interface ViewModel
+interface ViewModel {
+    fun onCreateView()
+    fun onAttachView()
+    fun onDetachView()
+}

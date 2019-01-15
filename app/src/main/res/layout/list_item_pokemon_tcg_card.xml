@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <data>
+        <variable
+            name="model"
+            type="com.app.cellstudio.domain.entity.PokemonTCGCard" />
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvLiptcRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:onClick="@{listener::onClick}"
+        android:foreground="@drawable/selector_ripple"
+        android:clickable="true"
+        android:focusable="true">
+
+        <com.app.cellstudio.pokemobile.presentation.view.component.AspectAwareImageView
+            android:id="@+id/ivLiptcPoster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/card_view_background"
+            android:src="@{model.imageUrl}"
+            tools:src="@drawable/ic_broken_image_24dp"
+            app:aspect_adjust="height"
+            app:aspect_height="@integer/pokemon_tcg_card_ratio_height"
+            app:aspect_width="@integer/pokemon_tcg_card_ratio_width"/>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
+

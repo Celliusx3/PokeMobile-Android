@@ -1,18 +1,17 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.adapter
+package com.app.cellstudio.pokemobile.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.app.cellstudio.androidkotlincleanboilerplate.R
-import com.app.cellstudio.androidkotlincleanboilerplate.databinding.ListItemPokemonTcgSetBinding
 import com.app.cellstudio.domain.entity.PokemonTCGSet
+import com.app.cellstudio.pokemobile.R
+import com.app.cellstudio.pokemobile.databinding.ListItemPokemonTcgSetBinding
 import io.reactivex.subjects.PublishSubject
 
 class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var loading: Boolean = false
     private val selectedModel = PublishSubject.create<PokemonTCGSet>()
 
     class ViewHolder : RecyclerView.ViewHolder {
@@ -26,35 +25,15 @@ class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : Re
         }
     }
 
-    class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var viewHolder: RecyclerView.ViewHolder?
         val layoutInflater = LayoutInflater.from(parent.context)
-
-        viewHolder = when (viewType) {
-            VIEW_TYPE_LOADING -> {
-                val v2 = layoutInflater.inflate(R.layout.loading_bar, parent, false)
-                LoadingViewHolder(v2)
-            }
-            VIEW_TYPE_MOVIE -> {
-                val binding = DataBindingUtil
-                        .inflate<ListItemPokemonTcgSetBinding>(layoutInflater, R.layout.list_item_pokemon_tcg_set, parent, false)
-                ViewHolder(binding)
-            }
-            else -> {
-                val binding = DataBindingUtil.inflate<ListItemPokemonTcgSetBinding>(layoutInflater, R.layout.list_item_pokemon_tcg_set, parent, false)
-                ViewHolder(binding)
-            }
-        }
-
-        return viewHolder
+        val binding = DataBindingUtil
+                .inflate<ListItemPokemonTcgSetBinding>(layoutInflater, R.layout.list_item_pokemon_tcg_set, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(baseHolder: RecyclerView.ViewHolder, position: Int) {
         if (baseHolder is ViewHolder) {
-
             baseHolder.binding.model = models[position]
             baseHolder.binding.setListener {
                 val pos = baseHolder.adapterPosition
@@ -66,27 +45,11 @@ class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : Re
     }
 
     override fun getItemCount(): Int {
-        val size = models.size
-        return if (loading) size + 1 else size
+        return models.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (loading && position == itemCount - 1) {
-            VIEW_TYPE_LOADING
-        } else VIEW_TYPE_MOVIE
-    }
-
-    fun setLoading(loading: Boolean) {
-        this.loading = loading
-        if (loading) {
-            notifyItemInserted(itemCount - 1)
-        } else {
-            notifyItemRemoved(itemCount)
-        }
-    }
-
-    fun getLoading(): Boolean {
-        return this.loading
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     fun updateData(models: List<PokemonTCGSet>) {
@@ -96,12 +59,18 @@ class PokemonTCGSetsAdapter(private val models: MutableList<PokemonTCGSet>) : Re
         notifyItemRangeInserted(start, newItemCount)
     }
 
-    fun getSelectedModel(): PublishSubject<PokemonTCGSet> {
-        return selectedModel
+    fun emptyData() {
+        this.models.clear()
+        notifyDataSetChanged()
     }
 
-    companion object {
-        const val VIEW_TYPE_MOVIE = 0
-        const val VIEW_TYPE_LOADING = 1
+    fun refreshData(models: List<PokemonTCGSet>) {
+        this.emptyData()
+        this.models.addAll(models)
+        notifyItemRangeInserted(0, models.size)
+    }
+
+    fun getSelectedModel(): PublishSubject<PokemonTCGSet> {
+        return selectedModel
     }
 }

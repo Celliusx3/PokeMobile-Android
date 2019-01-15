@@ -1,7 +1,7 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.di.components
+package com.app.cellstudio.pokemobile.di.components
 
-import com.app.cellstudio.androidkotlincleanboilerplate.di.modules.MainModule
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.activity.MainActivity
+import com.app.cellstudio.pokemobile.di.modules.MainModule
+import com.app.cellstudio.pokemobile.presentation.view.activity.MainActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [MainModule::class])

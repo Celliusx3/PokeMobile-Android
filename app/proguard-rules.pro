@@ -31,7 +31,7 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 
 # GSON parse
--keep class com.app.cellstudio.androidkotlincleanboilerplate.interactor.model.** { *; }
+-keep class com.app.cellstudio.pokemobile.interactor.model.** { *; }
 -keep class com.app.cellstudio.data.entity.** { *; }
 
 

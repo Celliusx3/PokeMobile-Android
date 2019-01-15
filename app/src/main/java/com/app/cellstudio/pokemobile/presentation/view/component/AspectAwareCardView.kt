@@ -1,10 +1,10 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component
+package com.app.cellstudio.pokemobile.presentation.view.component
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.cardview.widget.CardView
-import com.app.cellstudio.androidkotlincleanboilerplate.R
+import com.app.cellstudio.pokemobile.R
 
 class AspectAwareCardView : CardView {
     private var aspect = 1f
