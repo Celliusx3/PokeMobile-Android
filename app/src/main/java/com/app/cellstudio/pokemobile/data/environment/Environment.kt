@@ -10,4 +10,6 @@ interface Environment {
     fun getOSName() : String
     fun getOSVersion() : String
     fun getBaseUrl() : String
+
+    fun getNextUpdateDuration(): Long
 }

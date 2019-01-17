@@ -29,6 +29,29 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlSettingsRemoveCache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_ripple"
+        android:layout_below= "@id/rlSettingsCredits"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvSettingsRemoveCache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="12dp"
+            android:text="Remove Cache"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tvSettingsNotAffiliated"
         android:layout_width="match_parent"
@@ -37,7 +60,7 @@
         android:layout_alignParentBottom="true"
         android:textColor="@color/white"
         android:textAlignment="center"
-        android:text="This application is not produced, endorsed, supported or affiliated with the Nintendo or The Pokémon Company."
+        android:text="@string/not_affiliated"
         />
 
 </RelativeLayout>

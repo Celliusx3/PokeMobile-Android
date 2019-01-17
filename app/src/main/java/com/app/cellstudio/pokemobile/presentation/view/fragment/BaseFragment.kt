@@ -65,12 +65,8 @@ abstract class BaseFragment : RxFragment() {
         getViewModel()?.onAttachView()
     }
 
-    override fun onPause() {
-        super.onPause()
-        getViewModel()?.onDetachView()
-    }
-
     override fun onDestroy() {
+        getViewModel()?.onDetachView()
         compositeDisposable.dispose()
         super.onDestroy()
     }

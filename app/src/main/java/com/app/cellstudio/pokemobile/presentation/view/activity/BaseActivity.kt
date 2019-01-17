@@ -65,13 +65,9 @@ abstract class BaseActivity : RxAppCompatActivity() {
         getViewModel()?.onAttachView()
     }
 
-    override fun onPause() {
-        super.onPause()
-        getViewModel()?.onDetachView()
-    }
-
     override fun onDestroy() {
         compositeDisposable.dispose()
+        getViewModel()?.onDetachView()
         super.onDestroy()
     }
 
