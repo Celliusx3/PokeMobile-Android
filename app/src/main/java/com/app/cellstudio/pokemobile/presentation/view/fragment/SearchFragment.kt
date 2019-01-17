@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.app.cellstudio.domain.entity.PokemonTCGCard
+import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGCard
 import com.app.cellstudio.pokemobile.BaseApplication
 import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.databinding.FragmentSearchBinding
 import com.app.cellstudio.pokemobile.di.modules.SearchModule
-import com.app.cellstudio.pokemobile.interactor.viewmodel.SearchViewModel
-import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.SearchViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter.Companion.VIEW_TYPE_DATA
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter.Companion.VIEW_TYPE_LOADING

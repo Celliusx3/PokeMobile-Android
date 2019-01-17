@@ -12,8 +12,10 @@ interface ApplicationComponent {
     fun getApplication(): BaseApplication
     fun getApplicationContext(): Context
     fun inject(baseApplication: BaseApplication)
+    fun plus(splashModule: SplashModule): SplashComponent
     fun plus(mainModule: MainModule): MainComponent
     fun plus(homeModule: HomeModule): HomeComponent
     fun plus(pokemonTCGDetailsModule: PokemonTCGDetailsModule): PokemonTCGDetailsComponent
     fun plus(searchModule: SearchModule):SearchComponent
+    fun plus(settingsModule: SettingsModule): SettingsComponent
 }

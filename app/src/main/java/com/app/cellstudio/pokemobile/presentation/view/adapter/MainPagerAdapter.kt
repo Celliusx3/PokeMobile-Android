@@ -3,7 +3,7 @@ package com.app.cellstudio.pokemobile.presentation.view.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.app.cellstudio.domain.entity.Page
+import com.app.cellstudio.pokemobile.domain.entity.Page
 import com.app.cellstudio.pokemobile.presentation.view.fragment.HomeFragment
 import com.app.cellstudio.pokemobile.presentation.view.fragment.SearchFragment
 import com.app.cellstudio.pokemobile.presentation.view.fragment.SettingsFragment

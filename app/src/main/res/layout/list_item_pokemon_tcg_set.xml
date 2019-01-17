@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.app.cellstudio.domain.entity.PokemonTCGSet" />
+            type="com.app.cellstudio.pokemobile.domain.entity.PokemonTCGSet" />
 
         <variable
             name="listener"

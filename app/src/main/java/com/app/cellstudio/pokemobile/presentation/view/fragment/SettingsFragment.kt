@@ -3,24 +3,37 @@ package com.app.cellstudio.pokemobile.presentation.view.fragment
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import com.app.cellstudio.pokemobile.BaseApplication
 import com.app.cellstudio.pokemobile.R
-import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
+import com.app.cellstudio.pokemobile.di.modules.SettingsModule
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.SettingsViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.ViewModel
 import kotlinx.android.synthetic.main.fragment_settings.*
+import javax.inject.Inject
 
 class SettingsFragment : BaseFragment() {
+    @Inject
+    lateinit var settingsViewModel: SettingsViewModel
+
     override fun getViewModel(): ViewModel? {
-        return null
+        return settingsViewModel
     }
 
     override fun getLayoutResource(): Int {
         return R.layout.fragment_settings
     }
 
-    override fun onInject() {}
+    override fun onInject() {
+        BaseApplication.getInstance()
+                .getApplicationComponent()
+                .plus(SettingsModule())
+                .inject(this)
+    }
 
     override fun onBindData(view: View?) {
         super.onBindData(view)
         rlSettingsCredits.setOnClickListener { onCreditsClicked() }
+        rlSettingsRemoveCache.setOnClickListener { onRemoveCacheClicked() }
     }
 
     private fun onCreditsClicked() {
@@ -29,6 +42,10 @@ class SettingsFragment : BaseFragment() {
                 .setPositiveButton("OK") { dialog, _ -> dialog?.dismiss() }
                 .create()
         alertDialog.show()
+    }
+
+    private fun onRemoveCacheClicked() {
+        settingsViewModel.onRemoveCacheClicked()
     }
 
     companion object {

@@ -11,13 +11,13 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.app.cellstudio.domain.entity.PokemonTCGCard
+import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGCard
 import com.app.cellstudio.pokemobile.BaseApplication
 import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.databinding.ActivityPokemonTcgDetailsBinding
 import com.app.cellstudio.pokemobile.di.modules.PokemonTCGDetailsModule
-import com.app.cellstudio.pokemobile.interactor.viewmodel.PokemonTCGDetailsViewModel
-import com.app.cellstudio.pokemobile.interactor.viewmodel.ViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.PokemonTCGDetailsViewModel
+import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.ViewModel
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip

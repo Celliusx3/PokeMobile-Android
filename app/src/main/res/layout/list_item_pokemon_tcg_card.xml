@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.app.cellstudio.domain.entity.PokemonTCGCard" />
+            type="com.app.cellstudio.pokemobile.domain.entity.PokemonTCGCard" />
 
         <variable
             name="listener"

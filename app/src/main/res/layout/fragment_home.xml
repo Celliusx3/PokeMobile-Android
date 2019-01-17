@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.app.cellstudio.pokemobile.interactor.viewmodel.HomeViewModel" />
+            type="com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.HomeViewModel" />
 
         <import type="android.view.View" />
     </data>
