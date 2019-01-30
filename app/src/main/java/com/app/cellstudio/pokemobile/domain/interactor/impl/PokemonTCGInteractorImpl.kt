@@ -1,15 +1,17 @@
 package com.app.cellstudio.pokemobile.domain.interactor.impl
 
-import com.app.cellstudio.pokemobile.domain.interactor.PokemonTCGInteractor
+import com.app.cellstudio.pokemobile.data.repository.OfflineRepository
 import com.app.cellstudio.pokemobile.data.repository.PokemonTCGRepository
 import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGCard
 import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGSet
+import com.app.cellstudio.pokemobile.domain.interactor.PokemonTCGInteractor
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 
 
-class PokemonTCGInteractorImpl(private val pokemonTCGRepository: PokemonTCGRepository) : PokemonTCGInteractor {
+class PokemonTCGInteractorImpl(private val pokemonTCGRepository: PokemonTCGRepository,
+                               private val offlineRepository: OfflineRepository) : PokemonTCGInteractor {
     private val filterSeriesToShow = PublishSubject.create<List<String>>()
     private val filterLegalToShow = PublishSubject.create<List<String>>()
 
@@ -35,9 +37,16 @@ class PokemonTCGInteractorImpl(private val pokemonTCGRepository: PokemonTCGRepos
                 }
     }
 
-    override fun getAllPokemonTCGSets(isReverseOrder: Boolean): Observable<List<PokemonTCGSet>> {
-        return pokemonTCGRepository.getAllPokemonTCGSets()
+    override fun getAllPokemonTCGSets(isReverseOrder: Boolean, isConnected: Boolean): Observable<List<PokemonTCGSet>> {
+        val obs = if (!isConnected) { offlineRepository.getAllPokemonTCGSetsOffline() }
+        else { pokemonTCGRepository.getAllPokemonTCGSets()
                 .map {
+                    offlineRepository.setAllPokemonTCGSetsOffline(it)
+                    return@map it
+                }
+        }
+
+        return obs.map {
                     val filterSeries = generateFilterSeriesToShow(it)
                     filterSeriesToShow.onNext(filterSeries)
                     return@map it

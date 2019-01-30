@@ -1,6 +1,7 @@
 package com.app.cellstudio.pokemobile.di.modules
 
 import com.app.cellstudio.pokemobile.data.repository.ConfigRepository
+import com.app.cellstudio.pokemobile.data.repository.OfflineRepository
 import com.app.cellstudio.pokemobile.data.repository.PokemonTCGRepository
 import com.app.cellstudio.pokemobile.domain.interactor.ConfigInteractor
 import com.app.cellstudio.pokemobile.domain.interactor.MainInteractor
@@ -17,8 +18,8 @@ class InteractorModule {
 
     @Provides
     @Singleton
-    fun providePokemonTCGInteractor(pokemonTCGRepository: PokemonTCGRepository): PokemonTCGInteractor {
-        return PokemonTCGInteractorImpl(pokemonTCGRepository)
+    fun providePokemonTCGInteractor(pokemonTCGRepository: PokemonTCGRepository, offlineRepository: OfflineRepository): PokemonTCGInteractor {
+        return PokemonTCGInteractorImpl(pokemonTCGRepository, offlineRepository)
     }
 
     @Provides

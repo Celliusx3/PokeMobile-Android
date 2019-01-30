@@ -55,7 +55,6 @@ dependencies {
     ext.DAGGER2_VERSION = '2.15'
     ext.RX_ANDROID_VERSION = '2.1.0'
     ext.RX_LIFE_CYCLE_VERSION = '3.0.0'
-    ext.PAPER_PARCEL_VERSION = '2.0.1'
     ext.PICASSO_VERSION = '2.5.2'
     ext.ANDROIDX_VERSION = '1.1.0-alpha01'
     ext.MATERIAL_VERSION = '1.1.0-alpha02'
@@ -68,6 +67,8 @@ dependencies {
     ext.GSON_VERSION = '2.8.5'
     ext.OKHTTP_VERSION = '3.7.0'
     ext.RETROFIT_CONVERTER_GSON_VERSION = '2.3.0'
+    ext.GLIDE_VERSION = '4.8.0'
+    ext.ROOM_VERSION = '2.1.0-alpha04'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:${ANDROIDX_VERSION}"
@@ -86,11 +87,6 @@ dependencies {
     // RX-Life cycle - Lifecycle handling APIs
     implementation "com.trello.rxlifecycle3:rxlifecycle-kotlin:${RX_LIFE_CYCLE_VERSION}"
     implementation "com.trello.rxlifecycle3:rxlifecycle-components:${RX_LIFE_CYCLE_VERSION}"
-
-    // Parcel Annotation - To create Parcelable only with Annotations
-    implementation "nz.bradcampbell:paperparcel:${PAPER_PARCEL_VERSION}"
-    implementation "nz.bradcampbell:paperparcel-kotlin:${PAPER_PARCEL_VERSION}"
-    kapt "nz.bradcampbell:paperparcel-compiler:${PAPER_PARCEL_VERSION}"
 
     // Picasso
     implementation "com.squareup.picasso:picasso:${PICASSO_VERSION}"
@@ -113,4 +109,14 @@ dependencies {
     // OkHttp - HTTP Client which is used by Retrofit
     implementation "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
     implementation "com.squareup.okhttp3:logging-interceptor:${OKHTTP_VERSION}"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+    kapt "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
+
+    // Room
+    implementation "androidx.room:room-runtime:${ROOM_VERSION}"
+    kapt "androidx.room:room-compiler:${ROOM_VERSION}"
+    implementation "androidx.room:room-rxjava2:${ROOM_VERSION}"
+    testImplementation "androidx.room:room-testing:${ROOM_VERSION}"
 }

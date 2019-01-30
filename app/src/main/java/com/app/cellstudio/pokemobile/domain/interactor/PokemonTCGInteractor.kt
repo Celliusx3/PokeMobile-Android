@@ -5,7 +5,7 @@ import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGSet
 import io.reactivex.Observable
 
 interface PokemonTCGInteractor {
-    fun getAllPokemonTCGSets(isReverseOrder: Boolean): Observable<List<PokemonTCGSet>>
+    fun getAllPokemonTCGSets(isReverseOrder: Boolean, isConnected: Boolean): Observable<List<PokemonTCGSet>>
     fun getFilterSeriesToShow(): Observable<List<String>>
     fun getFilterLegalToShow(): Observable<List<String>>
 

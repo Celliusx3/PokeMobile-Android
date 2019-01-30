@@ -12,4 +12,19 @@
     <string name="search_here">Search Here…</string>
     <string name="filter">Filter</string>
     <string name="not_affiliated">This application is not produced, endorsed, supported or affiliated with the Nintendo or The Pokémon Company.</string>
+
+    <string name="notification_caching_title_start">Starting download</string>
+    <string name="notification_caching_title_error">Error downloading cards</string>
+    <string name="notification_caching_title">Downloading</string>
+    <string name="notification_caching_title_finished">Finished download</string>
+    <string name="notification_caching_text_format">%1$d cards downloaded.</string>
+    <string name="notification_caching_text">Waiting on server…</string>
+    <string name="notification_caching_text_error">Please try again.</string>
+    <string name="notification_expansion_caching_text_format">Downloading %1$s</string>
+    <string name="notification_expansion_cached_text_format">%1$s is now available for offline use</string>
+    <string name="notification_caching_queued_title">Download Queued</string>
+
+    <string name="notification_channel_name">PokéMobile</string>
+    <string name="notification_channel_description">All notifications for PokéMobile</string>
+
 </resources>

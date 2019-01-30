@@ -11,7 +11,6 @@ import io.reactivex.subjects.PublishSubject
 
 class HomeViewModelImpl(private val pokemonTCGInteractor: PokemonTCGInteractor,
                         scheduler: BaseSchedulerProvider) : BaseViewModel(scheduler), HomeViewModel {
-
     private val isLoading = ObservableBoolean(false)
     private val pokemonTCGSetsToShow = PublishSubject.create<List<PokemonTCGSet>>()
 
@@ -21,13 +20,15 @@ class HomeViewModelImpl(private val pokemonTCGInteractor: PokemonTCGInteractor,
         super.onCreateView()
 
         isLoading.set(true)
-        val disposable = pokemonTCGInteractor.getAllPokemonTCGSets(true)
+        val disposable = pokemonTCGInteractor.getAllPokemonTCGSets(true, this.isConnected)
                 .doFinally { isLoading.set(false) }
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.ui())
-                .subscribe { pokemonTCGSetsToShow.onNext(it)
+                .subscribe ({ pokemonTCGSetsToShow.onNext(it)
                     allPokemonTCGSets = it
-                }
+                }, {
+                    getAllPokemonTCGSetsOffline()
+                })
         subscriptions.add(disposable)
     }
 
@@ -73,4 +74,18 @@ class HomeViewModelImpl(private val pokemonTCGInteractor: PokemonTCGInteractor,
         return pokemonTCGSets.filter { seriesToShow.contains(it.series) }
     }
 
+    private fun getAllPokemonTCGSetsOffline() {
+        isLoading.set(true)
+        val disposable = pokemonTCGInteractor.getAllPokemonTCGSets(true, false)
+                .doFinally { isLoading.set(false) }
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
+                .subscribe ({ pokemonTCGSetsToShow.onNext(it)
+                    allPokemonTCGSets = it
+                }, {
+                    it.printStackTrace()
+                })
+        subscriptions.add(disposable)
+
+    }
 }

@@ -1,11 +1,16 @@
 package com.app.cellstudio.pokemobile.di.modules
 
+import com.app.cellstudio.pokemobile.data.db.AppDatabase
 import com.app.cellstudio.pokemobile.data.environment.Environment
 import com.app.cellstudio.pokemobile.data.http.HttpClient
 import com.app.cellstudio.pokemobile.data.pref.BasePref
 import com.app.cellstudio.pokemobile.data.repository.ConfigRepository
+import com.app.cellstudio.pokemobile.data.repository.DownloadRepository
+import com.app.cellstudio.pokemobile.data.repository.OfflineRepository
 import com.app.cellstudio.pokemobile.data.repository.PokemonTCGRepository
 import com.app.cellstudio.pokemobile.data.repository.impl.ConfigRepositoryImpl
+import com.app.cellstudio.pokemobile.data.repository.impl.DownloadRepositoryImpl
+import com.app.cellstudio.pokemobile.data.repository.impl.OfflineRepositoryImpl
 import com.app.cellstudio.pokemobile.data.repository.impl.PokemonTCGRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -24,5 +29,17 @@ class RepositoryModule {
     @Singleton
     fun provideConfigRepository(pref: BasePref): ConfigRepository {
         return ConfigRepositoryImpl(pref)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDownloadRepository(database: AppDatabase): DownloadRepository {
+        return DownloadRepositoryImpl(database)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOfflineRepository(database: AppDatabase): OfflineRepository {
+        return OfflineRepositoryImpl(database)
     }
 }
