@@ -8,7 +8,7 @@ class BaseImageLoader {
         private var sInstance: ImageLoader? = null
         fun getInstance (): ImageLoader {
             if (sInstance == null) {
-                sInstance = PicassoImageLoader()
+                sInstance = GlideImageLoader()
             }
             return sInstance as ImageLoader
         }
