@@ -50,13 +50,15 @@ class PokemonTCGDetailsViewModelImpl(private val pokemonTCGInteractor: PokemonTC
 
     override fun getAllPokemonTCGCardsInASet(set: String) {
         isLoading.set(true)
-        val disposable = pokemonTCGInteractor.getAllPokemonTCGCards(set)
+        val disposable = pokemonTCGInteractor.getAllPokemonTCGCards(set, true)
                 .doFinally { isLoading.set(false) }
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.ui())
-                .subscribe { pokemonTCGCardsToShow.onNext(it)
+                .subscribe ({ pokemonTCGCardsToShow.onNext(it)
                     allPokemonTCGCardsInASet = it
-                }
+                }, {
+                    getAllPokemonTCGCardsInASetOffline(set)
+                })
         subscriptions.add(disposable)
     }
 
@@ -94,5 +96,19 @@ class PokemonTCGDetailsViewModelImpl(private val pokemonTCGInteractor: PokemonTC
 
     private fun applySubTypeFilter(pokemonTCGCards: List<PokemonTCGCard>, cardsTypeToShow: List<String>): List<PokemonTCGCard> {
         return pokemonTCGCards.filter {cardsTypeToShow.contains(it.subtype)}
+    }
+
+    private fun getAllPokemonTCGCardsInASetOffline(set: String) {
+        isLoading.set(true)
+        val disposable = pokemonTCGInteractor.getAllPokemonTCGCards(set, false)
+                .doFinally { isLoading.set(false) }
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
+                .subscribe ({ pokemonTCGCardsToShow.onNext(it)
+                    allPokemonTCGCardsInASet = it
+                }, {
+                    it.printStackTrace()
+                })
+        subscriptions.add(disposable)
     }
 }

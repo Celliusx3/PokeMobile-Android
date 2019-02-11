@@ -1,5 +1,9 @@
 package com.app.cellstudio.pokemobile.domain.entity
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 class PokemonTCGSet(
     val code: String,
     val ptcgoCode: String,
@@ -12,4 +16,4 @@ class PokemonTCGSet(
     val symbolUrl: String,
     val logoUrl: String,
     val updatedAt: String
-)
+): Parcelable

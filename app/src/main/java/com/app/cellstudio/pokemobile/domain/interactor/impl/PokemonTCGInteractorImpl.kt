@@ -27,9 +27,14 @@ class PokemonTCGInteractorImpl(private val pokemonTCGRepository: PokemonTCGRepos
         return pokemonTCGRepository.searchPokemonTCGCards(name)
     }
 
-    override fun getAllPokemonTCGCards(code: String): Observable<List<PokemonTCGCard>> {
-        return pokemonTCGRepository.getPokemonTCGCards(code, PAGE_SIZE)
-                .map {
+    override fun getAllPokemonTCGCards(code: String, isConnected: Boolean): Observable<List<PokemonTCGCard>> {
+        val obs = if(!isConnected) {offlineRepository.getPokemonTCGCardsOffline(code)} else {
+            pokemonTCGRepository.getPokemonTCGCards(code, PAGE_SIZE) .map {
+                offlineRepository.setPokemonTCGCardsOffline(it)
+                return@map it
+            }
+        }
+        return obs.map {
                     val regex = Regex("[^0-9]")
                     return@map it.sortedBy {
                         regex.replace(it.number, "").toInt()

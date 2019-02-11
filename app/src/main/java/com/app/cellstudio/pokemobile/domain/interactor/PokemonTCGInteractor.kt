@@ -9,7 +9,7 @@ interface PokemonTCGInteractor {
     fun getFilterSeriesToShow(): Observable<List<String>>
     fun getFilterLegalToShow(): Observable<List<String>>
 
-    fun getAllPokemonTCGCards(code: String): Observable<List<PokemonTCGCard>>
+    fun getAllPokemonTCGCards(code: String, isConnected: Boolean): Observable<List<PokemonTCGCard>>
     fun searchPokemonTCGCards(name: String): Observable<List<PokemonTCGCard>>
     fun getFilterTypesToShow(): Observable<List<String>>
     fun getFilterSubtypesToShow(): Observable<List<String>>

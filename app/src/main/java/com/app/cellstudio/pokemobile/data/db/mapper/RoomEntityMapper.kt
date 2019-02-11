@@ -1,6 +1,8 @@
 package com.app.cellstudio.pokemobile.data.db.mapper
 
+import com.app.cellstudio.pokemobile.data.db.entity.PokemonTCGCardDatabaseEntity
 import com.app.cellstudio.pokemobile.data.db.entity.PokemonTCGSetDatabaseEntity
+import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGCard
 import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGSet
 
 class RoomEntityMapper {
@@ -32,6 +34,50 @@ class RoomEntityMapper {
                     pokemonTCGSet.symbolUrl,
                     pokemonTCGSet.logoUrl,
                     pokemonTCGSet.updatedAt)
+        }
+
+        fun create (pokemonTCGCardDatabaseEntity: PokemonTCGCardDatabaseEntity): PokemonTCGCard {
+            return PokemonTCGCard(pokemonTCGCardDatabaseEntity.id,
+                    pokemonTCGCardDatabaseEntity.name,
+                    pokemonTCGCardDatabaseEntity.nationalPokedexNumber,
+                    pokemonTCGCardDatabaseEntity.imageUrl,
+                    pokemonTCGCardDatabaseEntity.imageUrlHiRes,
+                    listOf(pokemonTCGCardDatabaseEntity.types),
+                    pokemonTCGCardDatabaseEntity.superType,
+                    pokemonTCGCardDatabaseEntity.subType,
+                    PokemonTCGCard.Ability("", "",""),
+                    "0",
+                    ArrayList(),
+                    pokemonTCGCardDatabaseEntity.retreatCost,
+                    pokemonTCGCardDatabaseEntity.number,
+                    pokemonTCGCardDatabaseEntity.artist,
+                    pokemonTCGCardDatabaseEntity.rarity,
+                    pokemonTCGCardDatabaseEntity.series,
+                    pokemonTCGCardDatabaseEntity.expansionSet,
+                    pokemonTCGCardDatabaseEntity.setCode,
+                    ArrayList(),
+                    ArrayList())
+        }
+
+        fun create (pokemonTCGCard: PokemonTCGCard): PokemonTCGCardDatabaseEntity {
+            return PokemonTCGCardDatabaseEntity(pokemonTCGCard.id,
+                    pokemonTCGCard.name,
+                    pokemonTCGCard.number,
+                    "",
+                    pokemonTCGCard.artist,
+                    pokemonTCGCard.rarity,
+                    pokemonTCGCard.nationalPokedexNumber,
+                    0,
+                    pokemonTCGCard.convertedRetreatCost,
+                    "",
+                    pokemonTCGCard.supertype,
+                    pokemonTCGCard.subtype,
+                    "",
+                    pokemonTCGCard.series,
+                    pokemonTCGCard.set,
+                    pokemonTCGCard.setCode,
+                    pokemonTCGCard.imageUrl,
+                    pokemonTCGCard.imageUrlHiRes)
         }
     }
 }

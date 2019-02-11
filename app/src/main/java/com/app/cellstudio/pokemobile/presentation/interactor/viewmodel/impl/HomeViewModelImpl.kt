@@ -20,7 +20,7 @@ class HomeViewModelImpl(private val pokemonTCGInteractor: PokemonTCGInteractor,
         super.onCreateView()
 
         isLoading.set(true)
-        val disposable = pokemonTCGInteractor.getAllPokemonTCGSets(true, this.isConnected)
+        val disposable = pokemonTCGInteractor.getAllPokemonTCGSets(true, true)
                 .doFinally { isLoading.set(false) }
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.ui())
@@ -86,6 +86,5 @@ class HomeViewModelImpl(private val pokemonTCGInteractor: PokemonTCGInteractor,
                     it.printStackTrace()
                 })
         subscriptions.add(disposable)
-
     }
 }
