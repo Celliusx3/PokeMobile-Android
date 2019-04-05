@@ -1,5 +1,6 @@
 package com.app.cellstudio.pokemobile.data.db.entity
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
@@ -11,26 +12,30 @@ import androidx.room.PrimaryKey
         childColumns = ["setCode"],
         onDelete = CASCADE)])
 class PokemonTCGCardDatabaseEntity(
-    @PrimaryKey var id: String,
-    var name: String,
-    var number: String,
-    var text: String,
-    var artist: String,
-    var rarity: String,
-    var nationalPokedexNumber: Int,
-    var hp: Int,
-    var retreatCost: Int,
-    var types: String,
-    var superType: String,
-    var subType: String,
-    var evolvesFrom: String,
-    var series: String,
-    var expansionSet: String,
-    var setCode: String,
-    var imageUrl: String,
-    var imageUrlHiRes: String
-
-//    @Embedded(prefix = "ability_") var ability: Abi?,
-//    var weaknesses: String?,
-//    var resistances: String?
-)
+        @PrimaryKey val id: String,
+        val name: String,
+        val nationalPokedexNumber: Int,
+        val imageUrl: String,
+        val imageUrlHiRes: String,
+        val types: List<String>,
+        val supertype: String,
+        val subtype: String,
+        @Embedded(prefix = "ability_") val ability: AbilityDatabaseEntity?,
+        val hp: String,
+        val retreatCost: List<String>,
+        val convertedRetreatCost: Int,
+        val number: String,
+        val artist: String,
+        val rarity: String,
+        val series: String,
+        val set: String,
+        val setCode: String,
+        val attacks: String,
+        val weaknesses: String
+) {
+    class AbilityDatabaseEntity (
+        val name: String?,
+        val text: String?,
+        val type: String?
+    )
+}

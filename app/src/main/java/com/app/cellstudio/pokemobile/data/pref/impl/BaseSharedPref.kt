@@ -6,11 +6,30 @@ import com.app.cellstudio.pokemobile.data.entity.PokemonTCGCardSubtypeDataRespon
 import com.app.cellstudio.pokemobile.data.entity.PokemonTCGCardSupertypeDataResponseModel
 import com.app.cellstudio.pokemobile.data.entity.PokemonTCGCardTypeDataResponseModel
 import com.app.cellstudio.pokemobile.data.pref.BasePref
+import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGSet
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
+import com.google.gson.reflect.TypeToken
+
 
 class BaseSharedPref(private val preferences: SharedPreferences) : BasePref {
+    override fun getDownloadedSets(): List<PokemonTCGSet>? {
+        val type = object : TypeToken<List<PokemonTCGSet>>() {}
+        return this.getObject(DOWNLOADED_SETS, type)
+    }
+
+    override fun setDownloadedSet(pokemonTCGSet: PokemonTCGSet) {
+        val type = object : TypeToken<List<PokemonTCGSet>>() {}
+        val list = this.getObject(DOWNLOADED_SETS, type)?.toMutableList()
+        if (list != null) {
+            list.add(pokemonTCGSet)
+            this.putObject(DOWNLOADED_SETS, list)
+        } else {
+            this.putObject(DOWNLOADED_SETS, listOf(pokemonTCGSet))
+        }
+    }
+
     override fun getNextFilterTypesUpdate(): Long {
         return this.getLong(CARD_TYPE_NEXT_UPDATE)
     }
@@ -48,15 +67,18 @@ class BaseSharedPref(private val preferences: SharedPreferences) : BasePref {
     }
 
     override fun getFilterTypes(): PokemonTCGCardTypeDataResponseModel? {
-        return this.getObject(CARD_TYPE, PokemonTCGCardTypeDataResponseModel::class.java)
+        val type = object : TypeToken<PokemonTCGCardTypeDataResponseModel>() {}
+        return this.getObject(CARD_TYPE, type)
     }
 
     override fun getFilterSupertypes(): PokemonTCGCardSupertypeDataResponseModel?{
-        return this.getObject(CARD_SUPERTYPE, PokemonTCGCardSupertypeDataResponseModel::class.java)
+        val type = object : TypeToken<PokemonTCGCardSupertypeDataResponseModel>() {}
+        return this.getObject(CARD_SUPERTYPE, type)
     }
 
     override fun getFilterSubtypes(): PokemonTCGCardSubtypeDataResponseModel? {
-        return this.getObject(CARD_SUBTYPE, PokemonTCGCardSubtypeDataResponseModel::class.java)
+        val type = object : TypeToken<PokemonTCGCardSubtypeDataResponseModel>() {}
+        return this.getObject(CARD_SUBTYPE, type)
     }
 
     override fun clearAllSharedPref() {
@@ -101,12 +123,26 @@ class BaseSharedPref(private val preferences: SharedPreferences) : BasePref {
         preferences.edit().putString(key, jsonObjectInString).apply()
     }
 
-    private fun <T> getObject(key: String, objectClass: Class<T>): T? {
+//    private fun <T> getObject(key: String, objectClass: Class<T>): T? {
+//        val gson = createGson()
+//        val json = preferences.getString(key, "")
+//        if (!TextUtils.isEmpty(json)) {
+//            return try {
+//                gson.fromJson(json, objectClass)
+//            } catch (e: JsonSyntaxException) {
+//                null
+//            }
+//
+//        }
+//        return null
+//    }
+
+    private fun <T> getObject(key: String, objectClass: TypeToken<T>): T? {
         val gson = createGson()
         val json = preferences.getString(key, "")
         if (!TextUtils.isEmpty(json)) {
             return try {
-                gson.fromJson(json, objectClass)
+                gson.fromJson(json, objectClass.type)
             } catch (e: JsonSyntaxException) {
                 null
             }
@@ -116,6 +152,7 @@ class BaseSharedPref(private val preferences: SharedPreferences) : BasePref {
     }
 
     companion object {
+        private const val DOWNLOADED_SETS = "DOWNLOADED_SETS"
         private const val CARD_TYPE = "CARD_TYPE"
         private const val CARD_SUBTYPE = "CARD_SUBTYPE"
         private const val CARD_SUPERTYPE = "CARD_SUPERTYPE"

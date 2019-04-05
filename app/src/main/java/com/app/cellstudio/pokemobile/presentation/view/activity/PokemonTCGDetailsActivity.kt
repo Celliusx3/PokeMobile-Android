@@ -11,13 +11,14 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGCard
 import com.app.cellstudio.pokemobile.BaseApplication
 import com.app.cellstudio.pokemobile.R
 import com.app.cellstudio.pokemobile.databinding.ActivityPokemonTcgDetailsBinding
 import com.app.cellstudio.pokemobile.di.modules.PokemonTCGDetailsModule
+import com.app.cellstudio.pokemobile.domain.entity.PokemonTCGCard
 import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.PokemonTCGDetailsViewModel
 import com.app.cellstudio.pokemobile.presentation.interactor.viewmodel.ViewModel
+import com.app.cellstudio.pokemobile.presentation.service.DownloadService
 import com.app.cellstudio.pokemobile.presentation.view.adapter.PokemonTCGCardsAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
@@ -67,6 +68,7 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         super.onBindView()
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.setNavigationOnClickListener { onBackPressed() }
+        setupDownloadButton()
         bottomSheetBehavior = BottomSheetBehavior.from(rlPokemonTCGSetFilter)
     }
 
@@ -81,6 +83,13 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         getFilterSubtypesToShow()
         getFilterSupertypesToShow()
         getFilterTypesToShow()
+
+        val downloadServiceDisposable = pokemonTCGDetailsViewModel.getStartDownloadService()
+            .compose(bindToLifecycle())
+            .observeOn(getUiScheduler())
+            .subscribe {
+                DownloadService.startService(this, pokemonTCGId, pokemonTCGTitle)
+            }
 
         onBottomSheetViewClick()
         onBottomSheetViewStateChanged()
@@ -318,13 +327,20 @@ class PokemonTCGDetailsActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Functions for download
+     */
+    private fun setupDownloadButton() {
+        btnDownload.visibility = View.VISIBLE
+        btnDownload.setOnClickListener { pokemonTCGDetailsViewModel.onDownloadButtonClicked() }
+    }
+
     companion object {
 
         private val TAG = PokemonTCGDetailsActivity::class.java.simpleName
 
         private const val EXTRA_POKEMON_TCG_ID = "EXTRA_POKEMON_TCG_ID"
         private const val EXTRA_POKEMON_TCG_TITLE = "EXTRA_POKEMON_TCG_TITLE"
-        private const val EXTRA_POKEMON_TCG_SET_SIZE = "EXTRA_POKEMON_TCG_SET_SIZE"
 
         fun getCallingIntent(context: Context, pokemonTCGId: String, pokemonTCGTitle: String): Intent {
             val intent = Intent(context, PokemonTCGDetailsActivity::class.java)

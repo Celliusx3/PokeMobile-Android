@@ -13,6 +13,18 @@
         app:title=""
         tools:title="@string/app_name">
 
+        <ImageView
+            android:id="@+id/btnDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity = "end"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:padding="16dp"
+            android:src="@drawable/ic_file_download_white_24dp"
+            android:focusable="true" />
+
         <RelativeLayout
             android:id="@+id/rlSearchHeader"
             android:visibility="gone"

@@ -20,9 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# PICASSO
--dontwarn com.squareup.okhttp.**
-
 # OKIO
 -keep class okio.** { *; }
 -dontwarn okio.**

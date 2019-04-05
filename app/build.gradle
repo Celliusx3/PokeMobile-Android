@@ -18,6 +18,10 @@ android {
         enabled = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
     buildTypes {
         debug {
             debuggable true
@@ -55,7 +59,6 @@ dependencies {
     ext.DAGGER2_VERSION = '2.15'
     ext.RX_ANDROID_VERSION = '2.1.0'
     ext.RX_LIFE_CYCLE_VERSION = '3.0.0'
-    ext.PICASSO_VERSION = '2.5.2'
     ext.ANDROIDX_VERSION = '1.1.0-alpha01'
     ext.MATERIAL_VERSION = '1.1.0-alpha02'
     ext.DATABINDING_VERSION = '3.4.0-alpha10'
@@ -87,9 +90,6 @@ dependencies {
     // RX-Life cycle - Lifecycle handling APIs
     implementation "com.trello.rxlifecycle3:rxlifecycle-kotlin:${RX_LIFE_CYCLE_VERSION}"
     implementation "com.trello.rxlifecycle3:rxlifecycle-components:${RX_LIFE_CYCLE_VERSION}"
-
-    // Picasso
-    implementation "com.squareup.picasso:picasso:${PICASSO_VERSION}"
 
     // PhotoView
     implementation "com.github.chrisbanes:PhotoView:${PHOTO_VIEW_VERSION}"

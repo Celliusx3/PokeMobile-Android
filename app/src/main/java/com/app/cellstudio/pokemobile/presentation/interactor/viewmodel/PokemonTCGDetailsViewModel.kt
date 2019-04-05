@@ -11,6 +11,8 @@ interface PokemonTCGDetailsViewModel: ViewModel {
     fun getFilterTypesToShow(): Observable<List<String>>
     fun getFilterSubtypesToShow(): Observable<List<String>>
     fun getFilterSupertypesToShow(): Observable<List<String>>
+    fun getStartDownloadService(): Observable<Unit>
 
     fun onApplyClicked(filterCardType: List<String>, filterType: List<String>, filterSubtype: List<String>)
+    fun onDownloadButtonClicked()
 }

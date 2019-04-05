@@ -16,6 +16,7 @@ class PokemonTCGDetailsViewModelImpl(private val pokemonTCGInteractor: PokemonTC
     private val filterTypesToShow = PublishSubject.create<List<String>>()
     private val filterSubtypesToShow = PublishSubject.create<List<String>>()
     private val filterSupertypesToShow = PublishSubject.create<List<String>>()
+    private val startDownloadService = PublishSubject.create<Unit>()
 
     private var allPokemonTCGCardsInASet: List<PokemonTCGCard> ?= null
 
@@ -82,6 +83,15 @@ class PokemonTCGDetailsViewModelImpl(private val pokemonTCGInteractor: PokemonTC
 
             pokemonTCGCardsToShow.onNext(subtypeFiltered)
         }
+    }
+
+    override fun getStartDownloadService(): Observable<Unit> {
+        return startDownloadService
+    }
+
+    override fun onDownloadButtonClicked() {
+        startDownloadService.onNext(Unit)
+
     }
 
     private fun applyCardTypeFilter(pokemonTCGCards: List<PokemonTCGCard>, cardsTypeToShow: List<String>): List<PokemonTCGCard> {
