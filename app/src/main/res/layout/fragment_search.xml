@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.app.cellstudio.pokemobile.interactor.viewmodel.SearchViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rlSearch">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.loading ? View.GONE: View.VISIBLE}"
+            android:layout_centerInParent="true">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSearchPokemonTCGCards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:targetApi="lollipop" />
+
+            <RelativeLayout
+                android:id = "@+id/rlSearchEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:id = "@+id/ivSearch"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src = "@drawable/ic_search_white_24dp"
+                    android:contentDescription="@string/content_description"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivSearch"
+                    android:textColor="@color/white"
+                    android:text = "@string/sorry_no_results_found"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/pbSearch"
+            android:visibility="@{viewModel.loading ? View.VISIBLE: View.GONE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+</layout>

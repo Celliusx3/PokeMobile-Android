@@ -1,18 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/rlHome">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvHomeItem"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.app.cellstudio.pokemobile.interactor.viewmodel.HomeViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:nestedScrollingEnabled="false"
-        tools:targetApi="lollipop" />
+        android:layout_height="match_parent"
+        android:id="@+id/rlHome">
 
-</RelativeLayout>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.isLoading ? View.GONE: View.VISIBLE}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHomeItem"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:targetApi="lollipop" />
+
+            <RelativeLayout
+                android:id = "@+id/rlFilterEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center" >
+
+                <ImageView
+                    android:id = "@+id/ivFilterEmpty"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:src = "@drawable/ic_sad_white_24dp"
+                    android:contentDescription="@string/content_description"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivFilterEmpty"
+                    android:textColor="@color/white"
+                    android:text = "@string/sorry_no_results_found"/>
+
+            </RelativeLayout>
+
+            <!-- include bottom sheet -->
+            <include
+                layout="@layout/bottom_sheet_view_pokemon_tcg_set_filter" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <ProgressBar
+            android:id="@+id/pbHome"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE: View.GONE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+</layout>
 

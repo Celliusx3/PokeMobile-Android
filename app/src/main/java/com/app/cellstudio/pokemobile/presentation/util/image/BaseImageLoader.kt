@@ -1,4 +1,6 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.util.image
+package com.app.cellstudio.pokemobile.presentation.util.image
+
+import com.app.cellstudio.androidkotlincleanboilerplate.presentation.util.image.ImageLoader
 
 class BaseImageLoader {
 

@@ -1,11 +1,12 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.adapter
+package com.app.cellstudio.pokemobile.presentation.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment.HomeFragment
-import com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment.SettingsFragment
 import com.app.cellstudio.domain.entity.Page
+import com.app.cellstudio.pokemobile.presentation.view.fragment.HomeFragment
+import com.app.cellstudio.pokemobile.presentation.view.fragment.SearchFragment
+import com.app.cellstudio.pokemobile.presentation.view.fragment.SettingsFragment
 import java.util.*
 
 class MainPagerAdapter(fragmentManager: FragmentManager,
@@ -15,6 +16,7 @@ class MainPagerAdapter(fragmentManager: FragmentManager,
 
     private var homeFragment: HomeFragment? = null
     private var settingsFragment: SettingsFragment? = null
+    private var searchFragment: SearchFragment? = null
 
     init {
 
@@ -40,11 +42,14 @@ class MainPagerAdapter(fragmentManager: FragmentManager,
                 }
                 return settingsFragment as SettingsFragment
             }
-            else -> {
-                if (homeFragment == null) {
-                    homeFragment = HomeFragment.newInstance()
+            Page.SearchPage -> {
+                if (searchFragment == null) {
+                    searchFragment = SearchFragment.newInstance()
                 }
-                return homeFragment as HomeFragment
+                return searchFragment as SearchFragment
+            }
+            else -> {
+                return Fragment()
             }
         }
     }

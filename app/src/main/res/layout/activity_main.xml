@@ -5,16 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rlMain"
+    android:background="@color/black"
     tools:context=".presentation.view.activity.MainActivity">
 
-    <com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component.DisableSwipeViewPager
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.app.cellstudio.pokemobile.presentation.view.component.DisableSwipeViewPager
         android:id="@+id/dsvpMain"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bnvMain"
         android:background="@color/transparent" />
 
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

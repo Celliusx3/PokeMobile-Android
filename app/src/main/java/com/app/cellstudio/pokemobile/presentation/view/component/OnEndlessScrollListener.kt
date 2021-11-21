@@ -1,4 +1,4 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.component
+package com.app.cellstudio.pokemobile.presentation.view.component
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

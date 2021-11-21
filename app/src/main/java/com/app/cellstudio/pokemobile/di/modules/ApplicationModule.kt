@@ -1,9 +1,9 @@
-package com.app.cellstudio.androidkotlincleanboilerplate.di.modules
+package com.app.cellstudio.pokemobile.di.modules
 
 import android.content.Context
-import com.app.cellstudio.androidkotlincleanboilerplate.BaseApplication
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler.BaseSchedulerProvider
-import com.app.cellstudio.androidkotlincleanboilerplate.interactor.scheduler.SchedulerProvider
+import com.app.cellstudio.pokemobile.BaseApplication
+import com.app.cellstudio.pokemobile.interactor.scheduler.BaseSchedulerProvider
+import com.app.cellstudio.pokemobile.interactor.scheduler.SchedulerProvider
 import com.app.cellstudio.data.environment.BaseEnvironment
 import com.app.cellstudio.data.environment.Environment
 import com.app.cellstudio.data.http.BaseHttpClient

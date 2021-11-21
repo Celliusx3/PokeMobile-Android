@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rlSettings"
-    tools:context="com.app.cellstudio.androidkotlincleanboilerplate.presentation.view.fragment.SettingsFragment">
+    tools:context="com.app.cellstudio.pokemobile.presentation.view.fragment.SettingsFragment">
 
     <RelativeLayout
         android:id="@+id/rlSettingsCredits"
@@ -28,5 +28,16 @@
             android:textSize="16sp" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvSettingsNotAffiliated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:text="This application is not produced, endorsed, supported or affiliated with the Nintendo or The Pokémon Company."
+        />
 
 </RelativeLayout>
